@@ -1,0 +1,30 @@
+<small ng-show="showCurrencyError" class="alert">*{{currencyError}}</small>
+<table class="pm-legacy-table primary-stripe resizable">
+    <thead>
+    <tr>
+        <th rowspan="{{isCompare ? 2 : 1}}" ></th>
+        <th ng-repeat="measureModel in slicerData.columns track by $index"
+            ng-style="{ 'text-align': measureModel.isMetric ? 'right' : 'left' }"
+            rowspan="{{isCompare && !measureModel.isMetric ? 2 : 1}}"
+            colspan="{{isCompare && measureModel.isMetric ? 2 : 1}}" style="min-width:150px;vertical-align:middle">
+
+            <div class="nowrap">
+                <div style="height:5px"></div>
+                <span style="display:inline;white-space:normal">
+                    {{::measureModel.name}}
+                </span>
+            </div>
+        </th>
+    </tr>
+    <tr ng-show="isCompare">
+        <th ng-style="{ 'text-align': measureModel.isMetric ? 'right' : 'left' }"
+            ng-repeat="measureModel in slicerData.secondaryColumns track by $index"
+            ng-if="isCompare && !measureModel.isDimension">
+            {{::measureModel.name}}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr pub-row ng-repeat="row in slicerData.rows track by $index" row="row" filters={{filters}} selected-dimensions="selectedDimensions" current-grouping-level="nextGroupingLevel"></tr>
+    </tbody>
+</table>

@@ -1,0 +1,184 @@
+@-webkit-keyframes ngdialog-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ngdialog-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes ngdialog-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ngdialog-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes ngdropDown-slideDown {
+  0% {
+    opacity: 0;
+    max-height:0;
+
+  }
+
+  100% {
+    opacity: 1;
+    max-height:1000px;
+
+  }
+}
+
+@keyframes ngdropDown-slideDown  {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+
+.ngdialog,
+.ngdialog *,
+.ngdialog *:before,
+.ngdialog *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ngdialog {
+  position: fixed;
+  overflow-y: auto;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.ngdialog.ngdialog-theme-default {
+  padding-bottom: 160px!important;
+  padding-top: 65px!important;
+}
+.ngdropdown {
+  box-shadow: -1px 3px 6px 0px rgba(50, 50, 50, 0.25);
+  position: absolute;
+  z-index: 999;
+  top: auto;
+  right: 125px;
+  bottom: auto;
+  left: auto;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 53px;
+  border: 2px solid #f3f3f3;
+
+}
+
+.ngbenchmarkdropdown {
+  box-shadow: -1px 3px 6px 0px rgba(50, 50, 50, 0.25);
+  position: absolute;
+  z-index: 999;
+  top: -15px;
+  right: 12px;
+  bottom: auto;
+  left: auto;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 53px;
+  border: 2px solid #f3f3f3;
+}
+
+
+.ngalertdropdown {
+  position: absolute;
+  z-index: 999;
+  bottom: auto;
+  left: auto;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 53px;
+  border: 2px solid #f3f3f3;
+}
+
+
+.ngdialog-overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdropDown-fadein 0.5s;
+  animation: ngdropDown-fadein 0.5;
+}
+
+.drop-down-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdropDown-fadein 0.5s;
+  animation: ngdropDown-fadein 0.5s;
+}
+
+
+.ngdialog.ngdialog-closing .ngdialog-overlay {
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadeout 0.5s;
+  animation: ngdialog-fadeout 0.5s;
+}
+
+.ngdialog-content {
+  overflow-x:hidden;
+  background: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdropDown-slideDown 0.8s;
+  animation: ngdropDown-slideDown 0.8s;
+  -webkit-box-shadow: -1px 3px 6px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    -1px 3px 6px 0px rgba(50, 50, 50, 0.75);
+  box-shadow:         -1px 3px 6px 0px rgba(50, 50, 50, 0.75);
+}
+
+.ngdialog.ngdialog-closing .ngdialog-content {
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadeout 0.5s;
+  animation: ngdialog-fadeout 0.5s;
+}
+
+.ngdialog-close:before {
+  font-family: 'Helvetica', Arial, sans-serif;
+  content: '\00D7';
+  cursor: pointer;
+}
+
+body.ngdialog-open {
+  overflow: hidden;
+}

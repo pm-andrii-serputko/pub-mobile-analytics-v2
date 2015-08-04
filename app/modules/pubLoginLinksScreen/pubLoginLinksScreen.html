@@ -1,0 +1,152 @@
+<!--
+|^ |_| ]3 |\/| /\ ~|~ /? | ><
+A PubMatic Technology.
+Copyright PubMatic, Inc. 2014
+Designed and engineered in:
+Redwood City, California
+Pune, India
+//pubmatic.com
+-->
+
+<style>
+
+    
+    .logo{
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 170px;
+    }
+
+    .login-form {
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .login-label{
+        width: 60px;
+        color: #DDD;
+        display: inline-block;
+        font-weight: 400;
+        text-shadow: 0 1px 0 #333,0 2px 0 #333;
+        margin-top: 9px;
+    }
+
+
+    input.login {
+        margin-left: 10px;
+        width: 200px;
+      background: none repeat scroll 0 0 #3B3B3B;
+        border: 1px solid #373737!important;
+        box-shadow: 0 1px 0 rgba(255,255,255,.08)!important;
+      color: #FFF;
+      font: 13px/15px Arial,sans-serif;
+      padding: 8px;
+      text-shadow: 0 0 0;
+
+      border-radius: 0;
+
+      border: 1px solid #CCC;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15) inset;
+      font-family: Arial,sans-serif;
+      font-size: 12px;
+      line-height: 18px;
+      padding: 5px;
+    }
+
+input.login:focus {
+      outline: -webkit-focus-ring-color auto 5px;
+      outline-color: -webkit-focus-ring-color;
+      outline-style: auto;
+      outline-width: 5px;
+    }
+
+    button.submitBtn {
+          font-family: Arial;
+          font-size: 12px;
+          border-top: 1px solid #3088B0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 0;
+          padding: 0 0 3px;
+          box-shadow: inset 0 1px 0 #333;
+          text-shadow: 0 1px 0 #222;
+          font-weight: 700;
+          text-decoration: none;
+          cursor: pointer;
+          color: #fff;
+          margin: 0 0 0 -2px;
+          line-height: 1em;
+          width: 69px;
+          height: 34px;
+          box-shadow: 0 1px 1px rgba(0,0,0,.08);
+          border-radius: 0;
+          background: #1076a4;
+          background: -moz-linear-gradient(top, #1076a4 0, #004d6e 100%);
+          background: -webkit-gradient(linear,left top,left bottom,color-stop(0%, #1076a4),color-stop(100%, #004d6e));
+          background: -webkit-linear-gradient(top, #1076a4 0, #004d6e 100%);
+          background: -o-linear-gradient(top, #1076a4 0, #004d6e 100%);
+          background: -ms-linear-gradient(top, #1076a4 0, #004d6e 100%);
+          background: linear-gradient(to bottom, #1076a4 0, #004d6e 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1076a4', endColorstr='#004d6e', GradientType=0 );
+          cursor: pointer;
+    }
+
+    .login-error{
+          background: transparent;
+
+          text-shadow: transparent;
+          box-shadow: none;
+          text-align: left;
+          color: #EF4141;
+          font-size: 12px;
+          text-shadow: 0;
+          padding: 0;
+          border-radius: 0;
+    }
+
+</style>
+
+
+<!-- HEADER -->
+
+<div class="overlay-login" ng-if="loginLoading"></div>
+
+<div class="loading-login" ng-if="loginLoading">
+    <i style="color: #0499d3;" class="fa fa-circle-o-notch fa-3x fa-spin "></i>
+</div>
+
+
+<div class="logo">
+    <img style="padding-left:20px;margin-left: 10px;" width="150" src="images/pubui-nav/logo_header.png">
+</div>
+
+<br>
+    <div class="login-error" style="text-align: center;" ng-if="loginError"><i class="fa fa-exclamation-triangle"></i>  {{errorMessage}} </div>
+
+<br>
+
+<!-- This is TEMP STYLING, will rework later -->
+<div class=" login-form">
+    <div class="horizontalLayout compLayout">
+        <div class="login-label"><label>Username:</label></div>
+        <input ng-model="username" class= "login"/>
+    </div>
+
+
+    <div class="horizontalLayout compLayout">
+        <div class="login-label"><label>Password:</label></div>
+        <input ng-model="password" type="password" class= "login"/>
+    </div>
+    <div style="  margin-top: 20px;margin-left: 45%;">
+        <button type="submit" ng-click="login()" class="compButton submitBtn" name="submit">Login</button>
+    </div>
+
+
+
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+

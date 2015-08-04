@@ -1,0 +1,40 @@
+<style>
+    .pmcc-helpful-report-comments {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #C0C0C0;
+        /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);*/
+    }
+</style>
+
+<div class="pmcc-r-12" ng-hide="finishedFeedback">
+    <!-- INITIAL STRING AND VOTE BUTTONS -->
+    <div class="pmcc-c-5">
+        <span class="bold">Was this report helpful to you?</span>
+        <button class="pmcc-btn-sm pmcc-primary" ng-class="feedbackYes? 'active':''" ng-click="showFeedbackTA=true; feedbackYes = true;" style="margin-left:10px">
+            <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp;Yes
+        </button>
+        <button class="pmcc-btn-sm pmcc-secondary" ng-class="feedbackYes === false? 'active':''" ng-click="showFeedbackTA=true; feedbackYes = false;" style="margin-left:5px">
+            <i class="fa fa-thumbs-o-down"></i>&nbsp;&nbsp;No
+        </button>
+    </div>
+    
+    <!-- USER's FEEDBACK INPUT -->
+    <div class="pmcc-r-12" ng-show="showFeedbackTA===true">
+        <div class="pmcc-c-5">
+            <div class="pmcc-r-12">
+                <textarea maxlength="254" ng-model="feedbackText" rows="6" placeholder="Any helpful comments?" class="pmcc-helpful-report-comments"></textarea>
+            </div>
+            <div class="pmcc-r-12" ng-show="showFeedbackTA===true" style="margin-top:10px">
+                <button class="pmcc-btn-lg pmcc-secondary left" ng-click="showFeedbackTA=false; resetFeedback();">Cancel</button>
+                <button class="pmcc-btn-lg pmcc-primary right" ng-click="submitFeedback({rank: feedbackYes, comment: feedbackText})" style="margin-right:0">Send</button>
+                <span class="small warning" ng-show="feedbackMessage!=''">{{feedbackMessage}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FEEDBACK MESSAGE FROM SYSTEM -->
+<div class="pmcc-r-12" style="margin-bottom:20px" ng-show="finishedFeedback">
+    <span class="small success" >{{feedbackMessage}}</span>
+</div>

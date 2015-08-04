@@ -1,0 +1,8 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="small-12 columns">
+        <div class="alert-box" ng-class="{'success-bg': toastType === 'toast-success', 'warning-bg': toastType === 'toast-warning', 'error-bg': toastType === 'toast-error'}" style="margin-bottom:10px;">
+            <div><strong>{{title}}</strong> <i class="pm-icon-remove" style="font-size:15px;margin-top:-1px;float:right;" ng-click="close()"></i></div>
+            <p class="flat">{{message}}</p>
+        </div>
+    </div>
+</div>

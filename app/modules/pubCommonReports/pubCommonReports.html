@@ -1,0 +1,50 @@
+<style>
+    /* remove the animation of all dialog */
+    .ngdialog-content {
+        -webkit-animation: none;
+        animation: ngdropDown-slideDown none;
+    }
+    .test-link {
+          display: block;
+          border-bottom: 1px solid rgba(0,0,0, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 15px;
+          font-weight: bold;
+          text-decoration: none;
+          text-indent: 20px;
+          color:black;
+    }
+
+    .test-link:hover {
+          color:black;
+    }
+
+    table.pm-legacy-table tr, table.pm-legacy-table.top-10 tr, table.pm-legacy-table.empty tr:hover {
+      border-bottom: 1px solid rgba(34,34,34,0.05);
+    }
+</style>
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px">
+    <div class="small-12 columns">
+        <h1 style="padding:10px;" class="flat">{{::'REPORTS.STANDARD_REPORTS' | translate}}</h1>
+    </div>
+</div>
+
+<hr>
+
+<div class="row" ng-repeat="group in reportGroups track by $index">
+    <div class="small-12 columns">
+        <h2 style="padding:10px;" class="h3 flat primary">{{::group.groupModel.getGroupName()}}</h2>
+        <br>
+
+        <ul style="list-style-type: none;">
+            <li ng-click="showReport(report)" style="  margin-bottom: .5em; line-height: 1.25em;" ng-repeat="report in group.standardReports track by $index"> <a  class="test-link ">{{::report.getName()}}  </a> </li>
+                
+        </ul>
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+

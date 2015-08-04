@@ -1,0 +1,9 @@
+<div class="row" ng-controller="DeleteCtrl">
+	<div class="ngdialog-message">
+		<h1 class="p flat">{{::'ALERTS.DELETE_MESSAGE1' | translate}} {{baseValue}} {{::'ALERTS.DELETE_MESSAGE2' | translate}} {{newDeleteValue}} {{::'ALERTS.DELETE_MESSAGE3' | translate}} </h1>
+	</div>
+	<div class="ngdialog-buttons">
+		<button id="deleteItem" type="button" class="button primary-bg right"  ng-click="callDeleteConfirm(true)" style="margin-left:5px">{{::'Yes' | translate}}</button>
+		<button type="button" class="button secondary-bg right" ng-click="callDeleteConfirm(false)">{{::'Cancel' | translate}}</button>
+	</div>
+</div>

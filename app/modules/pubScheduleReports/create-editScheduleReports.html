@@ -1,0 +1,164 @@
+<!--Nem : Todo: These classes need to be removed and replaced. -->
+<style>
+    .button.buttonFocus {
+        background-color : #0196d8;
+        border : 2px solid #0196d8;
+        color: #fff;
+    }
+    .button.buttonFocusCancel {
+        background-color : #e7e7e7;
+        border : 2px solid #e7e7e7;
+        color: #222;
+    }
+</style>
+
+<div
+    ng-contoller="scheduleReportCtrl"
+    class="schedule ngdialog-message"
+    style="margin-bottom:1em">
+
+    <!-- HEADER -->
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="scheduleTitle">{{::'REPORTS.SCHEDULE_REPORT_TITLE' | translate}}</h1>
+        </div>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="row">
+        <div class="small-12 columns">
+            <form name="emailForm" novalidate >
+                <label>{{::'REPORTS.SCHEDULE_EMAIL' | translate}}
+                    <div pm-input>
+                        <input id="inputEmail" type="text" style="width:100%" name="email" ng-model="lookup.email" placeholder="Specify email ids here separated by comma" ng-change="scheduleReportValidationMessage=''" maxlength="254" required multiple-emails/>
+                    </div>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- REPORT FREQUENCY -->
+    <div class="row">
+        <div class="small-12 columns">
+            <div class="form-group left">
+                <!-- Frequency -->
+                <form>
+                    <label>{{::'REPORTS.SCHEDULE_FREQUENCY' | translate}}<br>
+                        <span pm-select style="width:125px">
+                            <select ng-model="lookup.frequency"  ng-options="item.id as item.name for item in freqArray"></select>
+                        </span>
+                    </label>
+                </form>
+                <!-- Day -->
+                <form ng-hide="removeDay">
+                    <label>{{::'REPORTS.SCHEDULE_DAY' | translate}}<br>
+                        <span pm-select style="width:155px">
+                            <select ng-model="lookup.day" ng-options="item.id as item.name for item in dayArray"></select>
+                        </span>
+                    </label>
+                </form>
+                <!-- Hour -->
+                <form>
+                    <label>{{::'REPORTS.SCHEDULE_HOUR' | translate}}<br>
+                        <span pm-select style="width:85px;">
+                            <select ng-model="lookup.hour" ng-options="item.id as item.name for item in hourArray"></select>
+                        </span>
+                    </label>
+                </form>
+                <!-- Period -->
+                <form>
+                    <label>{{::'REPORTS.SCHEDULE_PERIOD' | translate}}<br>
+                        <span pm-select style="width:85px">
+                            <select ng-model="lookup.ampm" ng-options="item.id as item.name for item in periodArray"></select>
+                        </span>
+                    </label>
+                </form>
+                <!-- Time Zone -->
+                <form>
+                    <label>{{::'REPORTS.SCHEDULE_TIMEZONE' | translate}}<br>
+                        <div style="margin-top: 7px">
+                            {{timeZone}}
+                        </div>
+                    </label>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- SUBJECT -->
+    <div class="row">
+        <div class="small-12 columns">
+            <label>{{::'REPORTS.SCHEDULE_SUBJECT' | translate}}
+                <form name="subjectForm" novalidate>
+                    <div pm-input>
+                        <input style="width:100%" type="text" maxlength="254" name="subject" ng-model="lookup.subject" ng-change="scheduleReportValidationMessage=''" placeholder="Type your subject here" required/>
+                    </div>
+                </form>
+            </label>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- COMMENTS -->
+    <div class="row">
+        <div class="small-12 columns">
+            <label>{{::'REPORTS.SCHEDULE_COMMENTS' | translate}}
+                <div pm-input>
+                    <textarea maxlength="254" style="resize:none;height:115px;width:100%" ng-model="lookup.comment" rows="6" cols="56" placeholder="Type your comment here"></textarea>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <!-- ERROR MESSAGES -->
+    <div class="row">
+        <div class="small-12 columns">
+            <small ng-class="scheduleSuccess? 'success' : 'alert'">
+                    {{scheduleReportValidationMessage}}
+            <br/>
+            </small>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- EMAIL AS XLS/CSV -->
+    <div class="row">
+        <div class="small-6 columns">
+            <label>{{::'REPORTS.SCHEDULE_DOCTYPE' | translate}}</label>
+            <div style="margin-bottom:5px"></div>
+            <form>
+                <input type="radio" id="radio1" ng-model="lookup.downloadType" name="downloadType" ng-checked="true" value="EXCEL" />
+                <label for="radio1" style="padding-left:0"><span></span>XLS</label>
+                <input type="radio" id="radio2" ng-model="lookup.downloadType" name="downloadType" value="CSV" />
+                <label for="radio2" style="padding-left:0"><span></span>CSV</label>
+            </form>
+        </div>
+    </div>
+
+    <!-- CANCEL/SAVE -->
+    <div class="row ngdialog-buttons">
+        <button ng-focus="focusedSave=true"
+                ng-blur="focusedSave=false"
+                ng-class="{'buttonFocus': focusedSave}"
+                class="pm-button primary right"
+                ng-click="save()"
+                style="margin-left:5px">
+                {{::'REPORTS.SAVE' | translate}}
+        </button>
+        <button ng-focus="focusedCancel=true"
+                ng-blur="focusedCancel=false"
+                type="button"
+                ng-class="focusedCancel? 'buttonFocusCancel':'secondary-bg'"
+                class="pm-button default right"
+                ng-click="closeThisDialog()">
+                {{::'CANCEL' | translate}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+
+<div tooltip-container="top {{data.bulletChartDataSet.display?'':'hidden'}}">
+    <!-- Tooltip ROW 1 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="top" position="center">
+            </div>
+        </div>
+        <div tooltip-cell>
+        </div>
+    </div>
+    <!-- Tooltip ROW 2 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+            <div tooltip-pointer="left">
+            </div>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-bubble>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="{{compareData?5:4}}">Peer Set Values</th>
+                        </tr>
+                        <tr>
+                            <th ng-if="compareData">Publisher: </th>
+                            <th>Min:</th>
+                            <th>Max:</th>
+                            <th>Avg:</th>
+                            <th>Median:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td ng-if="compareData">{{data.bulletChartDataSet.advertisers[0].name}}</td>
+                            <td>{{data.bulletChartDataSet.min}}</td>
+                            <td>{{data.bulletChartDataSet.max}}</td>
+                            <td>{{data.bulletChartDataSet.avg}}</td>
+                            <td>{{data.bulletChartDataSet.median}}</td>
+                        </tr>
+                        <tr ng-if="compareData">
+                            <td >{{compareData.bulletChartDataSet.advertisers[1].name}}</td>
+                            <td>{{compareData.bulletChartDataSet.min}}</td>
+                            <td>{{compareData.bulletChartDataSet.max}}</td>
+                            <td>{{compareData.bulletChartDataSet.avg}}</td>
+                            <td>{{compareData.bulletChartDataSet.median}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="right">
+            </div>
+        </div>
+    </div>
+    <!-- Tooltip ROW 3 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="bottom" position="center">
+            </div>
+        </div>
+        <div tooltip-cell>
+        </div>
+    </div>
+</div><!--/ tooltip END -->

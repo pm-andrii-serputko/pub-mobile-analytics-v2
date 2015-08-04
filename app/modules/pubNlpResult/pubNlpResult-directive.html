@@ -1,0 +1,38 @@
+
+<!--TODO: temp loading for NLP -->
+<div class="row">
+    <div class="spinner-container" ng-if="nlpLoading == true">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'REPORTS.LOADING' | translate}}<p/>
+    </div>
+</div>
+
+
+<div class="row" ng-if="showResult" style="margin-top:30px">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <h2 ng-if="typing === false && textProcessed === false  && (displayReportList | filter:nlpDisplay).length == 0" class="bold">{{::'SEARCH_RESULT.SORRY' | translate}} "{{nlpStr}}".</h2>
+                <h2 ng-if="(displayReportList | filter:nlpDisplay).length != 0" class="bold">{{::'SEARCH_RESULT.REPORTS_FOUND' | translate}} "{{nlpStr}}":</h2>
+            </div>
+        </div>
+
+        <div class="row" ng-if="(displayReportList | filter:nlpDisplay).length != 0">
+            <div class="small-12 columns">
+                <h3 class="bold">Reports</h3>
+                <ul style="padding-left:0;list-style-position:inside;-webkit-column-count:2; /* Chrome, Safari, Opera */
+                    -moz-column-count: 2; /* Firefox */
+                    column-count:2;">
+
+
+
+                    <li class="primary" style="margin-bottom: 0px;cursor: pointer;" ng-repeat="report in displayReportList | filter:{ name: nlpDisplay} ">
+                        <span ng-click="resultReportClicked(report.url)">{{report.name}}</span>
+                    </li>
+                </ul>
+                <hr style="margin-top:20px;margin-bottom:20px">
+            </div>
+        </div>
+    </div>
+</div>

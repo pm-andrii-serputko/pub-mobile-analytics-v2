@@ -1,0 +1,58 @@
+
+<div tooltip-container="top {{toolTipDisplay ?'':'hidden'}}">
+    <!-- Tooltip ROW 1 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="top" position="center">
+            </div>
+        </div>
+        <div tooltip-cell>
+        </div>
+    </div>
+    <!-- Tooltip ROW 2 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+            <div tooltip-pointer="left">
+            </div>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-bubble>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="metric-name"><span class="square square-red">&nbsp;</span>{{::metricName}} Potential</td>
+                            <td class="metric-value">{{::potentialValue}} ({{::potentialPercentage}})</td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name"><span class="square square-grey">&nbsp;</span>Your {{::metricName}}</td>
+                            <td class="metric-value">{{::metricValue}} ({{::metricPercentage}})</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="metric-opportunity">
+                            <td class="metric-name">{{::metricName}} Opportunity</td>
+                            <td class="metric-value">{{::opportunityValue}} ({{::opportunityPercentage}})</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="right">
+            </div>
+        </div>
+    </div>
+    <!-- Tooltip ROW 3 -->
+    <div tooltip-row>
+        <div tooltip-cell>
+        </div>
+        <div tooltip-cell>
+            <div tooltip-pointer="bottom" position="center">
+            </div>
+        </div>
+        <div tooltip-cell>
+        </div>
+    </div>
+</div><!--/ tooltip END -->

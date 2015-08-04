@@ -1,0 +1,124 @@
+<!-- temp css for the active aggregation selection -->
+<style>
+.aggregation-buttons .active {
+    background-color: #0196d8;
+    color: #fff;
+}
+</style>
+
+
+<div class="row">
+    <div class="small-12 columns" >
+        <div class="row right">
+            <ul class="date-list">
+                <li ng-repeat="dateOption in dateRangeList track by $index">
+                    <a  ng-if="(timeUnitDimension.length == 0 ) ||  (!dateOption.group) || (dateOption.group == getOptionGroup())"   ng-class="$index == selectedOption ? selectedClass : dateOption.class" ng-click="selectDateOption($index)" >  {{dateOption.name | translate}}</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div ng-show="selectedOption == 7" id="calendars">
+
+            <div class="small-9 columns aggregation-buttons" ng-if="!compare || currentCompareView == 'report'">
+                <a ng-class="(datepickerAggregation == 'week')? 'active' : ((timeUnitDimension.length == 0) || (timeUnitDimension[0].getId() != 'hour') )? '': disabledClass" ng-click="setDatepickerAggregation('week')" class="button icon small ng-scope">
+                    Week
+                </a>
+                <a ng-class="(datepickerAggregation == 'month')? 'active' : ((timeUnitDimension.length == 0) || (timeUnitDimension[0].getId() != 'hour') )? '': disabledClass"  ng-click="setDatepickerAggregation('month')"  class="button icon small ng-scope">
+                    Month
+                </a>
+            </div>
+
+            <div ng-show="compare && currentCompareView == 'compare'">
+                <div  class="error-message" ng-if="dateError == true"> {{errorMessage}}  </div>
+                <div ng-show="datepickerAggregation != 'hour'"  class="row left datepicker-containner" >
+                    <span ng-show="(datepickerAggregation == 'date') || (!datepickerAggregation)">{{'DATE.START_DATE' | translate}}: {{compareStartDate | date:'mediumDate'}}</span>
+                    <span ng-show="datepickerAggregation == 'week'" >From: Week {{weekFormat(compareStartDate)}}</span>
+                    <span ng-show="datepickerAggregation == 'month'" >From: {{monthFormat(compareStartDate)}}</span>
+
+                    <div id="date">
+                        <pub-datepicker  ng-click="comparePickerClick()" data-ng-model="compareStartDate" type="start" />
+                    </div>
+                </div>
+
+
+                <div ng-show="datepickerAggregation != 'hour'" class="row left datepicker-containner" >
+                    <span ng-show="(datepickerAggregation == 'date') || (!datepickerAggregation)">{{'DATE.END_DATE' | translate}}: {{compareEndDate | date:'mediumDate'}}</span>
+                    <span ng-show="datepickerAggregation == 'week'" >To: Week {{weekFormat(compareEndDate)}}</span>
+                    <span ng-show="datepickerAggregation == 'month'" >To: {{monthFormat(compareEndDate)}}</span>
+
+                    <div  id="date" class="compare-picker disabled-picker">
+                        <pub-datepicker  data-ng-model="compareEndDate" type="end"  />
+                    </div>
+                </div>
+            
+                <div ng-show="datepickerAggregation == 'hour'" class="small-9 columns hourpicker-content">
+                    <div class="hourpicker-fromDate">
+                        <span >From:</span>
+                        <select ng-change="validateDate()"  class="dropdown select-hour" ng-model="hourCompareObject.startHour" ng-options="item.id as item.name for item in hourArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-period" ng-model="hourCompareObject.startPeriod" ng-options="item.id as item.name for item in periodArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-day" ng-model="hourCompareObject.displayStartday" ng-options="item.id as item.name for item in hourDayArray"></select>
+                    </div>
+
+                    <div class="hourpicker-toDate">
+                        <span >To:</span>
+                        <select disabled ng-change="validateDate()" class="dropdown select-hour" ng-model="hourCompareObject.endHour" ng-options="item.id as item.name for item in hourArray"></select>
+                        <select disabled ng-change="validateDate()" class="dropdown select-period" ng-model="hourCompareObject.endPeriod" ng-options="item.id as item.name for item in periodArray"></select>
+                        <select disabled ng-change="validateDate()" class="dropdown select-day" ng-model="hourCompareObject.displayEndday" ng-options="item.id as item.name for item in hourDayArray"></select>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div ng-show="!compare || currentCompareView == 'report'">
+                <div  class="error-message" ng-if="dateError == true"> {{errorMessage}}  </div>
+                
+
+                <div ng-show="datepickerAggregation == 'hour'" class="small-9 columns hourpicker-content">
+                    <div class="hourpicker-fromDate">
+                        <span >From:</span>
+                        <select ng-change="validateDate()"  class="dropdown select-hour" ng-model="hourObject.startHour" ng-options="item.id as item.name for item in hourArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-period" ng-model="hourObject.startPeriod" ng-options="item.id as item.name for item in periodArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-day" ng-model="hourObject.displayStartday" ng-options="item.id as item.name for item in hourDayArray"></select>
+                    </div>
+
+                    <div class="hourpicker-toDate">
+                        <span >To:</span>
+                        <select ng-change="validateDate()" class="dropdown select-hour" ng-model="hourObject.endHour" ng-options="item.id as item.name for item in hourArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-period" ng-model="hourObject.endPeriod" ng-options="item.id as item.name for item in periodArray"></select>
+                        <select ng-change="validateDate()" class="dropdown select-day" ng-model="hourObject.displayEndday" ng-options="item.id as item.name for item in hourDayArray"></select>
+                    </div>
+                </div>
+
+
+                <div ng-show="datepickerAggregation != 'hour'"  class="row left datepicker-containner" >
+                    <span ng-show="(datepickerAggregation == 'date') || (!datepickerAggregation)">{{'DATE.START_DATE' | translate}}: {{startDate | date:'mediumDate'}}</span>
+                    <span ng-show="datepickerAggregation == 'week'" >From: Week {{weekFormat(startDate)}}</span>
+                    <span ng-show="datepickerAggregation == 'month'" >From: {{monthFormat(startDate)}}</span>
+                    <div id="date">
+                        <pub-datepicker ng-click="pickerClick()" data-ng-model="startDate" type="start" />
+                    </div>
+                </div>
+
+
+                <div ng-show="datepickerAggregation != 'hour'" class="row left datepicker-containner" >
+                    <span ng-show="(datepickerAggregation == 'date') || (!datepickerAggregation)">{{'DATE.END_DATE' | translate}}: {{endDate | date:'mediumDate'}}</span>
+                    <span ng-show="datepickerAggregation == 'week'" >To: Week {{weekFormat(endDate)}}</span>
+                    <span ng-show="datepickerAggregation == 'month'" >To: {{monthFormat(endDate)}}</span>
+
+
+                    <div  id="date">
+                        <pub-datepicker ng-click="pickerClick()" data-ng-model="endDate" type="end"  />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div ng-show="selectedOption == 7"  class="datepicker-confirm">
+            <a class="button icon small secondary-bg" ng-click="closeThisDialog()">{{'CANCEL' | translate}}</a>
+
+            <a id="dialog-submit" ng-if="dateError != true" class="button icon small primary-bg" ng-click="confirm({'startDate':startDate, 'endDate':endDate,'optionIndex':selectedOption,'optionName':dateRangeList[selectedOption],'compareFlag':compare,'compareStartDate':compareStartDate, 'compareEndDate':compareEndDate})">{{'CONFIRM' | translate}}</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,378 @@
+<style>
+
+    div.linechart-container {
+      height: 350px!important;
+      margin-bottom: 70px;
+    }
+    .benchmarking-report-link {
+        color: #0084CB;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .benchmarking-report-link-container {
+        margin-bottom: 15px;
+    }
+    .no-data{
+        z-index: 100;
+    }
+    .data-freshness-indicator {
+        float: left;
+        margin-top: -5px;
+    }
+    .temp-header {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .temp-header-half {
+        width: 50%;
+        margin-bottom: 10px;
+    }
+    .temp-header-half:first-child {
+        float: left;
+    }
+    .temp-header-half:last-child {
+        float: right;
+    }
+
+    .report-header {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .report-header .pmcc-c-6 {
+          padding: 0;
+      }
+
+/*pub-multiselect .multiselect__trigger {
+  z-index: 0;
+}*/
+
+</style>
+
+<div class="pmcc-panel ng-scope">
+    
+    <div class="pmcc-header">
+        <div class="pmcc-left">
+            <div class="pmcc-title">Panel Title</div>
+        </div>
+        <div class="pmcc-right"></div>
+        <div class="pmcc-center"></div>
+    </div>
+
+    <div class="pmcc-toolbar">
+        <div class="pmcc-left">
+            <div class="group">
+                <button class="pmcc-btn-sm pmcc-secondary">Secondary Button</button>
+                <button class="pmcc-btn-sm pmcc-secondary">Secondary Button</button>
+            </div>
+        </div>
+        <div class="pmcc-right"></div>
+        <div class="pmcc-center"></div>
+    </div>
+
+    <div class="pmcc-content">
+        <i class="ng-binding">{{::lorem}}</i>
+    </div>
+    
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- LEGACY -->
+
+
+<!-- HEADER -->
+<div class="row">
+    <div class="small-12 columns">
+        <div ng-show="isBenchmarkReport" class="benchmarking-report-link-container"><span class="benchmarking-report-link" ng-click="goToBenchmarking()">Benchmarking</span> > {{reportTitle}}</div>
+    </div>
+</div>
+
+<!-- Report Titler -->
+<div class="row">
+    
+    <div class="small-8 columns">
+
+        <!-- <div ng-if="textProcessed == true && !reportTitle ">
+            <span>
+                {{'SLICER.ALTERNATIVE_REPORT' | translate}}
+                &nbsp;&nbsp;
+                <a ng-click="buttonRedirect('dimensions')" class="pm-button primary">{{'SLICER.MODIFY_REPORT_BUTTON' | translate}}</a>
+            </span>
+        </div> -->
+
+        <div ng-if="typing === false && textProcessed === true">
+            <h2 ng-if="(displayReportList | filter:nlpDisplay).length !== 0" class="bold" style="margin-bottom:5px">{{::'SLICER.ALTERNATIVE_REPORT' | translate}}:</h2>
+            <h2 ng-if="(displayReportList | filter:nlpDisplay).length === 0" class="bold" style="margin-bottom:5px">{{::'SLICER.NO_MATCHES' | translate}} "{{nlpStr}}":</h2>
+            <a ng-click="buttonRedirect('dimensions')" class="pm-button primary">{{::'SLICER.MODIFY_REPORT_BUTTON' | translate}}</a>
+        </div>
+
+        <div>
+            <h1 ng-if="textProcessed == false && !reportTitle" class="flat">
+                <div class="truncation-container">
+                    <div class="truncation-content">{{::'SLICER.REPORT_TITLE' | translate}}</div>
+                    <div class="truncation-spacer">{{::'SLICER.REPORT_TITLE' | translate}}</div>
+                </div>
+            </h1>
+            <h1 ng-if="reportTitle" class="flat">
+                <div class="truncation-container">
+                    <div class="truncation-content">{{reportTitle}}</div>
+                    <div class="truncation-spacer">{{reportTitle}}</div>
+                </div>
+            </h1>
+        </div>
+
+        <!-- Freshness date: show only if NLP results are shown -->
+        <div ng-if="datafreshnessIndicator && textProcessed === true" style="float:left;margin-top:14px">
+            <small>Current as of: {{datafreshnessIndicator}}</small>
+        </div>
+    </div>
+    <!-- Date picker, Edit report, Show chart buttons -->
+    <div class="small-4 columns" id="date-dropdown-button">
+        <!-- Edit report -->
+        <a class="pm-button icon right primary" ng-click="buttonRedirect('filter')" style="margin:0 0 0 5px" title="Edit Report">
+            <span class="th-pencil"></span>
+        </a>
+        <!-- Share report -->
+        <a class="pm-button default icon right " ng-if="reportType!='STANDARD'" ng-click="createSharedReport()" style="margin:0 0 0 5px" title="Share Report">
+            <span class="th-export"></span>
+        </a>
+
+        <!-- Date picker -->
+        <button class="pm-button default right text-left" style="padding:0px 10px 4px 10px" id="date-picker-dropdown" ng-click="openConfirm()">
+
+            <div style="margin-top:-1px">
+                <small style="line-height:1em;font-size:0.75em">
+                    {{dateCollectionObject.startDate | date:'mediumDate'}} &ndash; {{dateCollectionObject.endDate | date:'mediumDate'}}
+                    <label ng-if="compareFlag">compare to:<label>
+                </small>
+            </div>
+            <div style="margin-top:-5px">
+                <small ng-if="compareFlag" style="line-height:1em;font-size:0.75em">
+                    {{compareStartDate | date:'mediumDate'}} &ndash; {{compareEndDate | date:'mediumDate'}}
+                </small>
+            </div>
+            <!-- <br ng-if="compareFlag"> -->
+            <span class="left">
+                {{rangeList[dateCollectionObject.optionIndex].name | translate }}
+            </span>
+            <span class="caret"></span>
+        </button>
+    </div>
+</div>
+
+<!-- Freshness date: show for normal report screen -->
+<div class="row" ng-if="textProcessed === false">
+    <div class="small-12 columns">
+        <div ng-if="datafreshnessIndicator" class="data-freshness-indicator">
+            <small>Current as of: {{datafreshnessIndicator}}</small>
+        </div>
+    </div>
+</div>
+
+<hr style="margin-top:20px;margin-bottom:20px">
+
+<!-- Save message -->
+<div class="row" ng-show="isBenchmarkReport">
+    <div class="small-12 columns">
+        <div class="alert-box" style="border: 1px solid #b8b7b7; background: #ffffff; cursor: default;">
+            <p class="flat">
+                If you’d like to save this report for future reference, you can either <b>Save</b> it to your <b>Custom Reports</b> or <b>Download</b> the report.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- UTILITY BUTTON ROW -->
+<div class="row" style="margin-bottom:9px;">
+    <!-- Chart selection buttons -->
+    <div class="small-7 columns text-left">
+        <div>
+            <pmcc-dropdown model="selectedChart" options="chartTypeList" on-change="changeChartType(value)" class="ng-scope ng-isolate-scope"></pmcc-dropdown>
+        </div>
+    </div>
+
+    <!-- Chart utility buttons -->
+    <div class="small-5 columns text-right">
+
+        <!-- Scheduler button -->
+
+        <!-- <div ng-if="showScheduleButton"> -->
+        <a ng-if="showScheduleButton" ng-click="createScheduleReport()" title="{{::'SLICER.SCHEDULE_REPORT' | translate}}" class="pm-button default" style="margin-left:5px"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;Schedule</a>
+        <!-- </div> -->
+        <div ng-show="showExportDropDown" class="alert-drop-overlay" ng-click="showExportDropDown=!showExportDropDown"></div>
+        <!-- DROPDOWN component [start] -->
+        <button ng-click="showExportDropDown=!showExportDropDown" class="pm-button default"><!-- Main dropdown wrapper -->
+            <!-- FAKE SELECT -->
+            <span  style="width:200px">
+                <span class="th-download"></span>&nbsp;Download
+            </span>
+        </button><!-- /dropdown component -->
+
+        <!-- DROPDOWN MENU -->
+        <div pm-dropdown-menu class="width-adjustment" ng-hide="!showExportDropDown" style="right:27px;top:30px">
+            <!-- DOWNLOAD OPTIONS -->
+            <ul>
+                <li>
+                    <a class="download-highlight" ng-click="exportXlsx()"><span class="fa fa-file-excel-o"></span>&nbsp;&nbsp;{{::'SLICER.DOWNLOAD_EXCEL_FILE' | translate}}</a>
+                </li>
+                <li>
+                    <a class="download-highlight" ng-click="exportCSV()"><span class="fa fa-file-excel-o"></span>&nbsp;&nbsp;{{::'SLICER.DOWNLOAD_CSV_FILE' | translate}}</a>
+                </li>
+            </ul>
+        </div><!-- /dropdown menu -->
+
+
+        <a  ng-if="!isAggregator" ng-click="openSaveReport()" title="{{::'SLICER.FAVORITE_REPORT' | translate}}" class="pm-button default"><span class="th-disk"></span>&nbsp;Save</a>
+    </div>
+</div>
+
+<!-- DIMENSION/METRIC SELECTION ROW -->
+<div class="row">
+    <div class="small-6 columns">
+      <!-- SELECT dimension filter-->
+       <span class="left" >
+
+          <label style="font-weight: bold;cursor: default;padding-right:10px;"  label="left">View</label>
+          <pub-multiselect 
+              ng-class= "disableTableDimensionControl?'grayout-table-dimension': ''"
+              selector-items="tableDimensionList"
+              selections-settings="dimensionSelectionsSettings"
+              selections-model="selectedTableDimension"
+              selections-done="updateChart"
+              selections-cancel="selectionsCancel"
+              scroll>
+          </pub-multiselect>
+       </span>
+
+       <!-- SELECT primary metric-->
+       <span class="left">
+          <label style="font-weight: bold;cursor: default;padding-left:10px;padding-right:10px;"  label="left">by</label>
+            <pub-multiselect 
+                selector-items="availableMetricList"
+                selections-settings="selectionsSettings"
+                selections-model="selectedPrimaryChartMetric"
+                selections-done="updateChartPrimaryMetric"
+                selections-cancel="selectionsCancel"
+                single-select
+                scroll>
+            </pub-multiselect>
+       </span>
+
+      <!-- SELECT dual scale metric-->
+      <div ng-show="(selectedChart === 'hour-linechart' || selectedChart === 'date-linechart' || selectedChart === 'week-linechart' || selectedChart === 'month-linechart' || selectedChart === 'quarter-linechart') && totalMetricsNum >= 2">
+       <span class="left">
+        <label style="font-weight: bold;cursor: default;padding-left:10px;padding-right:10px;" label="left">vs</label>
+          <pub-multiselect
+              selector-items="availableMetricDualScaleList"
+              selections-settings="selectionsSettings"
+              selections-model="selectedDualScaleMetric"
+              selections-done="updateDualScaleMetric"
+              selections-cancel="selectionsCancel"
+              single-select
+              scroll>
+          </pub-multiselect>
+       </span>
+      </div>
+    </div>
+</div>
+
+<!-- CHART -->
+<div class="row" ng-if="displayChart && !tabularSpinner"  >
+    <div class="small-12 columns" style="text-align:center;">
+        <!-- GRAPH -->
+        <div id="chart-container" ng-class="((selectedChart == 'heatmap' && !loadingChart) || selectedChart == 'linechart')?( (selectedChart == 'heatmap' &&  compareValue !== 'compareAbsoluteValue') ? 'heatmap-container': 'linechart-container') :'regular-chart-container'">
+            <pub-chart chart-data="{{chartData}}"></pub-chart>
+        </div>
+        <br>
+    </div>
+</div>
+
+<!-- STAT BAR -->
+<div class="row">
+    <div class="small-12 columns">
+        <!-- Stat Bar -->
+        <div class="stat-bar">
+            <div class="stat-cell text-center left" ng-repeat="measureModel in totalsData.columns track by $index">
+                <span class="stat-label">{{::measureModel.name}}</span>
+                <span class="flat stat-data">{{::totalsData.rows[0][$index].value}}</span>
+            </div>
+        </div>
+        <!--/Stat Bar -->
+    </div>
+</div>
+
+
+<!-- DATA TABLE -->
+
+<!-- SPINNER -->
+<div class="row" ng-if="tabularSpinner == true">
+    <br>
+    <div class="spinner-container">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'DASHBOARD.LOADING' | translate}}<p/>
+    </div>
+    <br>
+</div>
+
+<!-- TRY AGAIN BUTTON -->
+<div class="spinner-container no-data" ng-if="tabularSpinner == false && tabularApiFailed == true">
+    <!-- TODO need to i18n -->
+    <!-- Temp message needs to be polished with link to appropriate location -->
+    <p>We're really sorry your data didn't load.</p>
+    <button class="pm-button primary" style="margin-top:5px" ng-click="tryAgain()">Try again</button>
+    <br>
+</div>
+
+<!-- <div class="row" ng-if="tabularSpinner == false">
+    <div class="small-9 columns">
+        <h2 class="h3 flat primary left">{{'SLICER.DATA_TITLE' |translate }}</h2>
+    </div>
+    <div class="small-3 columns">
+    </div>
+</div>
+<br> -->
+
+<!-- SHOW COMPARE VALUE AS -->
+<div class="row" ng-show="isCompare && tabularSpinner == false">
+    <div class="small-3 columns">
+        <form>
+            <label>Show compare value as </label>
+            <span pm-select class="expand">
+                <select ng-model="compareValue" ng-change="changeCompareValue()" ng-options="option.id as option.name for option in compareOptions"></select>
+            </span>
+        </form>
+    </div>
+</div>
+
+
+<!-- DATA TABLE -->
+<div class="row" ng-if="tabularSpinner == false">
+    <div class="small-12 columns">
+        <div class="table-container scroll">
+            <pub-table></pub-table>
+        </div>
+        <small class="gray">These numbers are not final for billing purposes</small>
+    </div>
+</div>
+
+<br/>
+<br/>
+
+<!-- Report Feedback-->
+<div class="row" ng-if="tabularSpinner == false">
+    <pub-report-feedback></pub-report-feedback>
+</div>
+<!-- Footer -->
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>

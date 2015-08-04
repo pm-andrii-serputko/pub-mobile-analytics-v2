@@ -1,0 +1,16 @@
+<style>
+	.ngdialog.ngdialog-theme-default {
+	  padding-bottom: 160px;
+	  padding-top: 65px;
+	  top:100px;
+	}
+</style>
+<div class="row">
+	<div class="ngdialog-message">
+		<h1 class="p flat">{{displayRemoveMessage}}</h1>
+	</div>
+	<div class="ngdialog-buttons">
+		<button id="removeItem" type="button" class="/ngdialog-button /ngdialog-button-secondary pm-button primary right"  ng-click="removeItem()" style="margin-left:5px">{{::'Yes' | translate}}</button>
+		<button type="button" class="/ngdialog-button /ngdialog-button-secondary pm-button default right" ng-click="close()">{{::'Cancel' | translate}}</button>
+	</div>
+</div>

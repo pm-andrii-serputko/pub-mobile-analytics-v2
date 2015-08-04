@@ -1,0 +1,363 @@
+<Style>
+/* Dashboard-specific sizing */
+    .dimensions-multiselect .multiselect__trigger {
+        width: 220px;
+    }
+
+    /* Hide bar chart y-asix line */
+    .pm-container-body .nvd3 .nv-axis path.domain{
+        opacity: 0;
+    }
+
+    /* Hide bar chart grid line  */
+    .pm-container-body .nv-x .nv-axis g.tick line{
+        opacity: 0!important;
+    }
+
+    .livedata-label{
+        line-height: 2.5;
+    }
+
+    .top-10-dropdown {
+        display: flex;
+        align-items: center;
+    }
+    .top-10-dropdown label { margin-right: 5px; }
+
+
+    svg text{
+        font: normal 9px Arial;
+    }
+
+    .pm-dashboard-metric-toggle-container .pm-dashboard-metric-toggle.active, .pm-dashboard-metric-toggle-container .pm-dashboard-metric-toggle:hover {
+        padding-top: 15px;
+    }
+
+    .pm-dashboard-metric-toggle-label {
+      font-size: 13px;
+    }
+
+    .pm-dashboard-metric-toggle{
+        height: 70px;
+    }
+
+    .pm-dashboard-metric-toggle-value {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+.animated { 
+    -webkit-animation-duration: 2s; 
+    animation-duration: 2s; 
+    -webkit-animation-fill-mode: both; 
+    animation-fill-mode: both; 
+}
+
+
+
+@-webkit-keyframes flipInX { 
+    0% { 
+        -webkit-transform: perspective(400px) rotateX(90deg); 
+        opacity: 0; 
+    } 
+    40% { 
+        -webkit-transform: perspective(400px) rotateX(-10deg); 
+    } 
+    70% { 
+        -webkit-transform: perspective(400px) rotateX(10deg); 
+    } 
+    100% { 
+        -webkit-transform: perspective(400px) rotateX(0deg); 
+        opacity: 1; 
+    } 
+} 
+@keyframes flipInX { 
+    0% { 
+        transform: perspective(400px) rotateX(90deg); 
+        opacity: 0; 
+    } 
+    40% { 
+        transform: perspective(400px) rotateX(-10deg); 
+    } 
+    70% { 
+        transform: perspective(400px) rotateX(10deg); 
+    } 
+    100% { 
+        transform: perspective(400px) rotateX(0deg); 
+        opacity: 1; 
+    } 
+} 
+.flipInX { 
+    -webkit-backface-visibility: visible !important; 
+    -webkit-animation-name: flipInX; 
+    backface-visibility: visible !important; 
+    animation-name: flipInX; 
+}
+
+@-webkit-keyframes fadeInDown { 
+    0% { 
+        opacity: 0; 
+        -webkit-transform: translateY(-20px); 
+    } 
+    100% { 
+        opacity: 1; 
+        -webkit-transform: translateY(0); 
+    } 
+} 
+
+@keyframes fadeInDown { 
+    0% { 
+        opacity: 0; 
+        transform: translateY(-20px); 
+    } 
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+} 
+
+.fadeInDown { 
+    -webkit-animation-name: fadeInDown; 
+    animation-name: fadeInDown; 
+}
+
+
+
+
+
+
+</Style>
+
+
+
+
+
+<div class="overlay-login" ng-if="dailySummary=='' "></div>
+
+<div class="loading-login" ng-if="dailySummary=='' ">
+    <i style="color: #0499d3;" class="fa fa-circle-o-notch fa-3x fa-spin "></i>
+</div>
+
+
+
+
+
+<!-- HEADER -->
+<!-- <header ng-if="dailySummary!=''" style="margin-top:30px">
+    <div id="dashboard-realtime-header">
+        <h1>{{::'DASHBOARD.RTD' | translate}}</h1>
+        <h1 class="subtitle">Your minute-by-minute reporting, on a simple dashboard.</h1>
+    </div>
+    <div>
+        <span class="livedata-label" >{{::'DASHBOARD.LIVE_DATA' | translate}}:</span>
+        <div id="dashboard-realtime-on-off-control" class="pm-toggle-button-container">
+            <div id="dashboard-realtime-on-control" ng-click="toggleLiveData(true)" class="pm-toggle-button  success-color" ng-class="isLive? 'active' : ''"   >{{::'DASHBOARD.DATA_ON' | translate}}</div>
+            <div id="dashboard-realtime-off-control" ng-click="toggleLiveData(false)" class="pm-toggle-button alert-color" ng-class="isLive? '' : 'active'"  >{{::'DASHBOARD.DATA_OFF' | translate}}</div>
+        </div>
+    </div>
+</header> -->
+
+<div id="dashboard-realtime-parent-control" class="pm-container parent">
+    <!-- CONTAINER HEADER -->
+
+    <!-- <button id="open-left">click</button> -->
+    <div id="dashboard-day-summary-text" class="pm-container-header animated fadeInDown">
+        <span class="bold">{{::'DASHBOARD.DAY_SUMMARY' | translate}} </span>
+        <span>since midnight {{metadataTimezone}}, {{currentDate}}</span>
+    </div>
+    <!-- METRIC TOGGLES -->
+    <div id="dashboard-spend-header" class="pm-dashboard-metric-toggle-container">
+        <div class="pm-dashboard-metric-toggle clickable" ng-class="radoBtnCheckList.spend.checked? 'active':''" ng-if="dailySummary.spend" ng-click="radioBtnClick('spend')">
+            <div class="pm-dashboard-metric-toggle-label">
+              {{::'DASHBOARD.SPEND' | translate}}
+            </div>
+            <div class="pm-dashboard-metric-toggle-value">
+              {{dailySummary.spend}}
+            </div>
+            <div class="pm-dashboard-metric-toggle-active-indicator"></div>
+            <div class="tooltip-pointer bottom">
+            </div>
+        </div>
+
+
+
+      <div id="dashboard-revenue-header" class="pm-dashboard-metric-toggle  clickable animated flipInX" ng-class="radoBtnCheckList.revenue.checked? 'active':''"  ng-if="dailySummary.revenue" ng-click="radioBtnClick('revenue')">
+        <div class="pm-dashboard-metric-toggle-label">
+          {{::'DASHBOARD.REVENUE' | translate}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-value">
+          {{dailySummary.revenue}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-active-indicator">
+        </div>
+        <div class="tooltip-pointer bottom">
+        </div>
+      </div>
+      <!-- 2 -->
+      <div id="dashboard-paid-impressions-header" class="pm-dashboard-metric-toggle clickable animated flipInX" ng-class="radoBtnCheckList.paidImpressions.checked? 'active':''" ng-if="dailySummary.paidImpressions" ng-click="radioBtnClick('paidImpressions')">
+        <div class="pm-dashboard-metric-toggle-label">
+          {{::'DASHBOARD.PAID_IMPRESSIONS' | translate}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-value">
+          {{dailySummary.paidImpressions}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-active-indicator">
+        </div>
+        <div class="tooltip-pointer bottom">
+        </div>
+      </div>
+      <!-- 3 -->
+      <div id="dashboard-eCPM-header" class="pm-dashboard-metric-toggle clickable animated flipInX" ng-class="radoBtnCheckList.ecpm.checked? 'active':''"  ng-if="dailySummary.ecpm" ng-click="radioBtnClick('ecpm')">
+        <div class="pm-dashboard-metric-toggle-label">
+          {{::'DASHBOARD.ECPM' | translate}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-value">
+          {{dailySummary.ecpm}}
+        </div>
+        <div class="pm-dashboard-metric-toggle-active-indicator">
+        </div>
+        <div class="tooltip-pointer bottom">
+        </div>
+      </div>
+    </div>
+    <!-- CONTAINER BODY -->
+    <div class="pm-container-body width-100" style="padding: 20px 5px 0;">
+        <div id="dashboard-last-20-mins"  class="pm-container-body-header">Last 20 Minutes</div>
+        <div id="dashboard-chart-container"  class="pm-container-body-flex" style="  font-size: 12px;">
+            <div id="dashboard-spend-chart-container"  class="pm-container child" style="padding: 0px;" ng-if="radoBtnCheckList.spend.checked && spendRealTimeData">
+                <span class="bold">Spend </span>
+                <span>Last 20 minutes</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="bold">Min: </span>
+                <span>{{spendRealTimeData[0].min}}</span>
+                <span class="bold">Max: </span>
+                <span>{{spendRealTimeData[0].max}}</span>
+                <!-- <div class="pm-dashboard-metric-chart" > -->
+                <div>
+                    <nvd3-multi-bar-chart
+                        data="spendRealTimeData"
+                        id="realTimeChart"
+                        height="200"
+                        color="colorFunction('spend')"
+                        showXAxis="true"
+                        clipEdge="true"
+                        delay="300"
+                        transitionduration="600"
+                        objectequality="true"
+                        showYAxis="true"
+                        forcey="[0,0.02]"
+                        xAxisTickFormat="xAxisTimeFunction()"
+                        yAxisTickFormat="yAxisFunction('spend', spendCurrency)">
+                        <svg></svg>
+                    </nvd3-multi-bar-chart>
+                </div>
+               <!--  </div> -->
+            </div>
+            <div id="dashboard-revenue-chart-container"  class="pm-container child "  style="padding: 0px;" ng-if="radoBtnCheckList.revenue.checked && revenueRealTimeData">
+                <div style="padding:15px;">
+                    <span class="bold">Revenue </span>
+                    <br/>
+                    <span class="bold">Min: </span>
+                    <span>{{revenueRealTimeData[0].min}}</span>
+                    <span class="bold">Max: </span>
+                    <span>{{revenueRealTimeData[0].max}}</span>
+                </div>
+
+                <div style=" margin-top:-30px;">
+                    <nvd3-stacked-area-chart
+                        data="revenueRealTimeData"
+                        id="realTimeChart"
+                        height="200"
+                        width="380"
+                        color="colorFunction('revenue')"
+                        showXAxis="true"
+                        clipEdge="true"
+                        delay="300"
+                        transitionduration="600"
+                        objectequality="true"
+                        showYAxis="true"
+                        xAxisTickFormat="xAxisTimeFunction()"
+                        yAxisTickFormat="yAxisFunction('revenue', revenueCurrency)"
+                        forcey="[0,0.02]">
+                        <svg></svg>
+                    </nvd3-stacked-area-chart>
+                <!--  </div> -->
+                </div>
+            </div>
+            <div id="dashboard-paid-impressions-chart-container"  class="pm-container child"  style="padding: 0px;" ng-if="radoBtnCheckList.paidImpressions.checked && paidImpressionsRealTimeData">
+                <div style="padding:15px;">
+                    <span class="bold">Paid Impressions </span>
+                    <br/>
+                    <span class="bold">Min: </span>
+                    <span>{{paidImpressionsRealTimeData[0].min}}</span>
+                    <span class="bold">Max: </span>
+                    <span>{{paidImpressionsRealTimeData[0].max}}</span>
+                </div>
+                <div style="margin-top:-30px;">
+                    <nvd3-stacked-area-chart
+                        data="paidImpressionsRealTimeData"
+                        height= "200"
+                        color="colorFunction('paidImpressions')"
+                        showXAxis="true"
+                        width="380"
+                        clipEdge="true"
+                        delay="300"
+                        transitionduration="600"
+                        objectequality="true"
+                        showYAxis="true"
+                        forcey="[0,2]"
+                        xAxisTickFormat="xAxisTimeFunction()"
+                        yAxisTickFormat="yAxisFunction('paidImpressions', paidImpressionsCurrency)">
+                        <svg></svg>
+                    </nvd3-stacked-area-chart>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div id="dashboard-eCPM-chart-container" class="pm-container child" style="padding: 0px;" ng-if="radoBtnCheckList.ecpm.checked && ecpmRealTimeData">
+                <div style="padding:15px;">
+                    <span class="bold">eCPM </span>
+                    <br/>
+                    <span class="bold">Min: </span>
+                    <span>{{ecpmRealTimeData[0].min}}</span>
+                    <span class="bold">Max: </span>
+                    <span>{{ecpmRealTimeData[0].max}}</span>
+                </div>
+                <div style="margin-top:-30px;">
+                     <nvd3-stacked-area-chart
+                        data="ecpmRealTimeData"
+                        height="200"
+                        color="colorFunction('ecpm')"
+                        showXAxis="true"
+                        clipEdge="true"
+                        delay="300"
+                        width="380"
+                        transitionduration="600"
+                        objectequality="true"
+                        showYAxis="true"
+                        forcey="[0,0.02]"
+                        xAxisTickFormat="xAxisTimeFunction()"
+                        yAxisTickFormat="yAxisFunction('ecpm', ecpmCurrency)"
+                        forcey="[0]">
+                        <svg></svg>
+                    </nvd3-stacked-area-chart>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div><!-- / container-flex  -->
+    </div><!--/ container-body -->
+</div><!--/ container-parent -->
+
+<div class="row">
+    <div class="small-12 columns">
+        <small class="gray" ng-if="loadingTopTen == false">{{::'DASHBOARD.FINAL_BILLING' | translate}}</small>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

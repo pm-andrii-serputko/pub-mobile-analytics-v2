@@ -1,0 +1,15 @@
+/*doc
+---
+title: Visibility
+name: visibility
+# category: Atoms
+# parent: global
+---
+
+TBD
+
+*/
+/* line 14, ../../../../../tophat-test/components/atoms/global/visibility.scss */
+*:focus {
+  outline: 0;
+}

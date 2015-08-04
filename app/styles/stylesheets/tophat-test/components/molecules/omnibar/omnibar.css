@@ -1,0 +1,357 @@
+/*doc
+---
+title: Fonts
+name: font
+category: Atoms
+parent: global
+---
+
+The official brand font is Helvetica Neue LT, which works well in print. In our app, we use Open Sans as the system font for it's more humanistic feel. It's open letterforms allow for better readability, especially on screens and interfaces. We use Lato for numeric values for it's high contrast.
+
+To stay consistent with updates, call our core font with `$primary-font` and our numeric font with `$data-font`.
+
+```html_example
+	<h1>Every ad. Every sales channel. Every screen. One platform.</h1>
+	<h1 style="font-family:Lato">845,349.00</h1>
+```
+*/
+/* line 35, ../../../../../tophat-test/components/atoms/global/_fonts.scss */
+html {
+  font-family: "Open Sans";
+}
+
+/*doc
+---
+title: Clearfix
+name: clearfix
+category: Atoms
+parent: global
+---
+
+Use clearfix to clear floats by adding `.clearfix` to an empty block element.
+
+```html_example
+	<div class="swatch only">
+		<div class="swatch-color primary-bg"></div>    
+	</div>
+	<div class="swatch only">
+		<div class="swatch-color primary-bg"></div>    
+	</div>
+
+	<div class="clearfix"></div>
+
+	<div class="swatch only">
+		<div class="swatch-color primary-bg"></div>    
+	</div>
+
+	<div class="clearfix"></div>
+```
+
+*/
+/* line 30, ../../../../../tophat-test/components/atoms/global/_clearfix.scss */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: ".";
+  clear: both;
+  height: 0;
+}
+
+/* line 38, ../../../../../tophat-test/components/atoms/global/_clearfix.scss */
+* html .clearfix {
+  zoom: 1;
+}
+
+/* IE6 */
+/* line 39, ../../../../../tophat-test/components/atoms/global/_clearfix.scss */
+*:first-child + html .clearfix {
+  zoom: 1;
+}
+
+/* IE7 */
+/*doc
+---
+title: Colors
+name: color
+category: Atoms
+parent: global
+---
+
+##System Colors
+
+Each swatch comes with four pieces of info. Here's an example of how to use'em, using the primary color (PubMatic blue) as an example:
+
+What                              | When
+----------------------------------|----------------------------------
+Hex such as `#0196D8`             | when you need an actual web value
+Variable such as `$primary-color` | when you need to call this color while writing SASS
+Class such as `.color`            | to apply the color to text; use `.color-bg` to apply the color to the background of an element
+-
+
+<div class="swatch">
+    <div class="swatch-color primary-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;0196D8</b></p>
+        <p>$primary-color</p>
+        <p class="bold">.primary<br>.primary-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color secondary-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;E7E7E7</b></p>
+        <p>$secondary-color</p>
+        <p class="bold">.secondary<br>.secondary-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color alert-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;F04124</b></p>
+        <p>$alert-color</p>
+        <p class="bold">.alert<br>.alert-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color warning-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;F08A24</b></p>
+        <p>$warning-color</p>
+        <p class="bold">.warning<br>.warning-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color yield-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;FFC20F</b></p>
+        <p>$yield-color</p>
+        <p class="bold">.yield<br>.yield-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color success-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;43AC6A</b></p>
+        <p>$success-color</p>
+        <p class="bold">.success<br>.success-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color info-bg"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;EEFAFF</b></p>
+        <p>$info-color</p>
+        <p class="bold">.info<br>.info-bg</p>
+    </div>
+</div>
+
+<br><br><br>
+
+<div class="swatch">
+    <div class="swatch-color alert-bg-light"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;FDF0ED</b></p>
+        <p>$alert-color</p>
+        <p class="bold">.info<br>.info-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color warning-bg-light"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;FEF6ED</b></p>
+        <p>$warning-color</p>
+        <p class="bold">.info<br>.info-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color yield-bg-light"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;FFFAEB</b></p>
+        <p>$yield-color</p>
+        <p class="bold">.info<br>.info-bg</p>
+    </div>
+</div>
+
+<div class="swatch">
+    <div class="swatch-color success-bg-light"></div>    
+    <div class="swatch-info">
+    	<p><b>&#35;F0FAF4</b></p>
+        <p>$success-color</p>
+        <p class="bold">.info<br>.info-bg</p>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+##
+
+*/
+/* line 150, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.primary {
+  color: #0196d8;
+}
+
+/* line 153, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.secondary {
+  color: #e7e7e7;
+}
+
+/* line 156, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.alert {
+  color: #f04124;
+}
+
+/* line 159, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.warning {
+  color: #f08a24;
+}
+
+/* line 162, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.yield {
+  color: #ffc20f;
+}
+
+/* line 165, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.success {
+  color: #43ac6a;
+}
+
+/* line 168, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.info {
+  color: #eefaff;
+}
+
+/* line 171, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.inverse {
+  color: white;
+}
+
+/* line 174, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.black {
+  color: black;
+}
+
+/* line 177, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.gray {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 182, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.primary-bg {
+  background-color: #0196d8;
+}
+
+/* line 185, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.secondary-bg {
+  background-color: #e7e7e7;
+}
+
+/* line 188, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.alert-bg {
+  background-color: #f04124;
+}
+
+/* line 191, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.warning-bg {
+  background-color: #f08a24;
+}
+
+/* line 194, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.yield-bg {
+  background-color: #ffc20f;
+}
+
+/* line 197, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.success-bg {
+  background-color: #43ac6a;
+}
+
+/* line 200, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.info-bg {
+  background-color: #eefaff;
+}
+
+/* line 203, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.inverse-bg {
+  background-color: black;
+}
+
+/* line 206, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.black-bg {
+  background-color: black;
+}
+
+/* line 209, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.gray-bg {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 220, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.alert-bg-light {
+  background-color: #fef3f1;
+}
+
+/* line 223, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.warning-bg-light {
+  background-color: #fef8f1;
+}
+
+/* line 226, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.yield-bg-light {
+  background-color: #fffbef;
+}
+
+/* line 229, ../../../../../tophat-test/components/atoms/global/_colors.scss */
+.success-bg-light {
+  background-color: #f3fbf6;
+}
+
+/*doc
+---
+title: Omnibar
+name: omnibar
+category: Molecules
+---
+
+These are Omnibar.
+
+*/
+/* line 21, ../../../../../tophat-test/components/molecules/omnibar/omnibar.scss */
+.nlp-bar {
+  background-color: #222;
+  height: 55px;
+  position: fixed;
+  transition-duration: 300ms;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* line 30, ../../../../../tophat-test/components/molecules/omnibar/omnibar.scss */
+.nlp-input {
+  background-color: #222;
+  color: #FFF;
+  font-family: "Open Sans";
+  font-size: 20px;
+  height: 30px;
+  margin-top: 4px;
+  width: 100%;
+}
+
+/* line 40, ../../../../../tophat-test/components/molecules/omnibar/omnibar.scss */
+div.nlp-input {
+  outline: 0;
+}
+
+/* line 43, ../../../../../tophat-test/components/molecules/omnibar/omnibar.scss */
+.nlp-wrapper {
+  border-bottom: 4px solid #0196d8;
+  margin-top: 13px;
+}

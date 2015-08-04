@@ -1,0 +1,68 @@
+<!--
+|^ |_| ]3 |\/| /\ ~|~ /? | ><
+A PubMatic Technology.
+Copyright PubMatic, Inc. 2014
+Designed and engineered in:
+Redwood City, California
+Pune, India
+//pubmatic.com
+-->
+
+<div class="row" style="margin-top:30px">
+    <div class="small-7 columns">
+        <h1 class="flat">{{::'DIMENSIONS_SCREEN.SELECT_DIMENSIONS' | translate}}</h1>
+        <p style="font-size:.8em;line-height:1.25em">{{::'DIMENSIONS_SCREEN.PROMPT' | translate}}</p>
+        <p style="font-size:.8em;line-height:1.25em"><b>{{::'DIMENSIONS_SCREEN.NOTE' | translate}}:</b> {{::'DIMENSIONS_SCREEN.NOTE_CONTENT' | translate}}</p>
+    </div>
+    <div class="small-5 columns">
+        <button class="pm-button default right" ng-click="clear()">{{::'CLEAR_SELECTION' | translate}}&nbsp;&nbsp;<span class="pm-icon-remove" style="font-size:12px"></span></button>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="small-4 columns" ng-repeat="column in ::dimensionGroupListSortedByColumns track by $index">
+                <table ng-class="{'first': $index === 0}"class="pm-legacy-table hover" ng-repeat="dimensionGroup in ::column track by $index">
+                    <thead>
+                        <tr>
+                            <th>{{::dimensionGroup.groupModel.getName()}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="{{dimensionModel.getId()}}_Row" pub-dimension-item ng-repeat="dimensionModel in ::dimensionGroup.dimensions track by $index"
+                            ng-class="{'disabled': dimensionModel.getDisabled() && !dimensionModel.getSelected()}" ng-click="toggle()">
+                            <td ng-class="{'selected': dimensionModel.getSelected()}">{{::dimensionModel.getName()}}
+                                <span class="pmcc-ico-info right"
+                                      id="t{{::dimensionModel.getId()}}"
+                                      pmcc-tooltip
+                                      pmcc-content-provider="getDimensionTooltip(key)"
+                                      pmcc-content-key="{{::dimensionModel.getId()}}">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="small-6 columns">
+        <span class="small warning" ng-if="showHourInfo" style="font-size:.8em;line-height:1em"> * {{::'DIMENSIONS_SCREEN.WARNING' | translate}}.</span>
+    </div>
+    <div class="small-6 columns">
+        <div class="right">
+            <button ng-click="cancel()" class="pm-button default">{{::'CANCEL' | translate}}</button>
+            <button ng-click="done()" class="pm-button primary">{{::'NEXT' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+

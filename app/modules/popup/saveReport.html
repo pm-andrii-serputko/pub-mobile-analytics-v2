@@ -1,0 +1,37 @@
+    <div ng-controller="saveReportCtrl" class="ngdialog-message">
+        <!-- Report Title -->
+        <div class="row">
+            <h3 class="">{{::'REPORTS.SAVE_THIS_REPORT' | translate}}</h3>
+        </div>
+
+        <!-- Report Name -->
+        <div class="row" style="margin-top:10px">
+            <div pm-input>
+                <h6 class="">{{::'REPORTS.REPORT_NAME' | translate}}</h6>
+                <input id="reportName" ng-keypress="callSave($event)" ng-change="savedReportsMessage=''" type="text" ng-model="reportName" style="width:100%" maxlength="255" placeholder="My custom report" />
+                <small ng-class="saveSuccess? 'success' : 'alert'">
+                    {{savedReportsMessage}}
+                </small>
+            </div>
+        </div>
+
+        <!-- Report Description -->
+        <div class="row" style="margin-top:10px">
+            <div pm-input>
+                <h6 class="">{{::'REPORTS.REPORT_DESCRIPTION' | translate}}</h6>
+                <textarea maxlength="255" ng-model="reportDescription" rows="6" cols="56" placeholder="My description" style="width:100%"></textarea>
+            </div>
+        </div>
+
+        <!-- Report buttons-->
+        <div class="row">
+
+            <div class="ngdialog-buttons" style="margin-top:20px">
+                <button ng-if="reportFound == false" type="button" class="/ngdialog-button /ngdialog-button-secondary pm-button default left" ng-click="closeThisDialog()">{{::'CANCEL' | translate}}</button>
+                <button ng-if="reportFound == false" type="button" class="/ngdialog-button /ngdialog-button-primary pm-button primary right" ng-click="save()" style="margin-left:5px">{{::'REPORTS.SAVE' | translate}}</button>
+
+                <button ng-if="reportFound == true" type="button" class="pm-button default left" ng-click="closeThisDialog()">No</button>
+                <button ng-if="reportFound == true" type="button" ng-click="save()" class="pm-button alert right" style="margin-left:5px">Yes</button>
+            </div>
+        </div>
+    </div>

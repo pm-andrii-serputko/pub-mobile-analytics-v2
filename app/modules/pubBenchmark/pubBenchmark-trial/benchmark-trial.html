@@ -1,0 +1,125 @@
+<style>
+    .pmcc-extra-pad .pmcc-content { padding: 25px }
+    button.pmcc-no-mar { margin-right: 0 !important }
+    pmcc-content p, .pmcc-content li { line-height: 1.75em; margin: 0 }
+    .pmcc-h1 {
+        font-size: 24px;
+        font-weight: 300;
+        letter-spacing: -.02em;
+        line-height: 1.2em;
+    }
+    .pmcc-h2 {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .pmcc-h3 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .pmcc-ico-check {
+        color: #6eb43f;
+    }
+    [class*="pmcc-r-"].header-row { margin-top: 30px }
+</style>
+
+
+<!-- SPINNER -->
+<div class="row" ng-if="loadingTrialPutAPI">
+    <div class="spinner-container">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'LOADING' | translate}}<p/>
+    </div>
+</div>
+
+
+<div ng-if="firstAccess">
+<!-- HEADER -->
+    <div class="pmcc-r-12 header-row">
+        <div class="pmcc-c-12">
+            <h1 class="pmcc-h1">Competitive Benchmarking: Try Analytics Premium for Free</h1>
+            <br/>
+            <p>Sorry, your account doesn't include this feature &ndash; but you can add it by trying Analytics Premium. Get better insights to help optimize your business with the powerful capabilities of Analytics Premium. Enjoy a free 60-day trial on us!</p>
+        </div>
+    </div>
+
+    <div class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <div class="pmcc-panel pmcc-extra-pad ng-scope">
+                <div class="pmcc-content">
+                    <div class="pmcc-r-1">
+                        <div class="pmcc-c-1"><h2 class="pmcc-h2">Analytics Premium Features:</h2></div>
+                    </div>
+                    <div class="pmcc-r-24" style="margin-top: 20px">
+                        <div class="pmcc-c-1" style="text-align:center">
+                            <span class="pmcc-ico-check pmcc-ico-4x"></span>
+                        </div>
+                        <div class="pmcc-c-23">
+                            <h3 class="pmcc-h3">Competitive Benchmarking</h3>
+                            <hr/>
+                            <!-- FEATURES BULLET LIST -->
+                            <ul>
+                                <li>See how your inventory performance stacks up against similar publishers.</li>
+                                <li>Compare your eCPMs, Share of Wallet, and Share of Voice with industry and category trends.</li>
+                                <li>Identify pricing upside opportunities and sales possibilities based on advertiser data.</li>
+                            </ul>
+                            <br/>
+                            <img src="images/benchmark-example.png" class="benchmark-screenshot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <div class="button-container">
+                <button ng-click="backToHome()" class="pmcc-btn-lg pmcc-secondary">Not Now</button>
+                <button ng-click="activateTrial()" class="pmcc-btn-lg pmcc-primary pmcc-no-mar">Start Free Trial</button>
+            </div>
+        </div>
+    </div>
+</div> <!-- first template -->
+
+
+<div ng-if="!firstAccess">
+    <!-- HEADER -->
+    <div class="pmcc-r-12 header-row">
+        <div class="pmcc-c-6">
+            <h1 class="pmcc-h1">Congratulations!</h1>
+        </div>
+    </div>
+
+    <!-- FEATURES BULLET LIST -->
+    <div class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <div class="pmcc-panel pmcc-extra-pad ng-scope">
+                <div class="pmcc-content">
+                    <div class="pmcc-r-1">
+                        <div class="pmcc-c-1">
+                            <h2 class="pmcc-h2">Your Free 60-Day Trial of Analytics Premium Begins Now</h2>
+                            <br/>
+                            <p>Use the powerful features of Analytics Premium to analyze your inventory performance, get customized updates on key events, and identify opportunities to optimize and improve your business.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUTTON ROW-->
+    <div class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <button ng-click="navigateCompetitiveBenchmarkTrial()" class="pmcc-btn-lg pmcc-primary pmcc-no-mar right">View Competitive Benchmarking</button>
+        </div>
+    </div>
+</div>  <!-- second template -->
+
+
+<div class="pmcc-r-1">
+    <div class="pmcc-c-1">
+        <div style="margin-bottom:150px"></div>
+        <pub-footer></pub-footer>
+    </div>
+</div>

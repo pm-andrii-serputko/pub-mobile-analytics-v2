@@ -1,0 +1,26 @@
+<style>
+    .alert-count-box {
+        box-shadow:inset 0 0 10px #000000;
+        padding-top: 5px;
+          padding-right: 10px;
+          padding-bottom: 5px;
+          padding-left: 10px;
+          margin-left: 110px;
+    }
+
+</style>
+
+
+<div class="snap-drawers" style="margin-top:45px;">
+    <div class="snap-drawer snap-drawer-left">
+        <div style="padding-top:20px">
+            <img style="padding-left:20px" width="100" src="images/pubui-nav/logo_header.png"/>
+
+            <ul>
+                <li ng-repeat="each in links"> <a ng-click="redirectURL(each.href)" ><i class="{{each.icon}}"></i>&nbsp;&nbsp; {{each.display}}  <span ng-if="each.href == 'alerts'" class="alert-count-box">  {{alertCount}}<span></a></li>
+            </ul>
+            <pub-footer></pub-footer>
+        </div>
+    </div>
+    <div class="snap-drawer snap-drawer-right"></div>
+</div>

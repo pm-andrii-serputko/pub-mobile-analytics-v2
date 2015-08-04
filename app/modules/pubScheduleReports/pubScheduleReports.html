@@ -1,0 +1,80 @@
+<style>
+    /* remove the animation of all dialog */
+    .ngdialog-content {
+        -webkit-animation: none;
+        animation: ngdropDown-slideDown none;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px">
+    <div class="small-12 columns">
+        <h1 class="flat">{{::'REPORTS.SCHEDULE_REPORTS' | translate}}</h1>
+    </div>
+</div>
+
+<hr>
+<!-- DATA TABLE -->
+<!-- SPINNER -->
+<div class="row" ng-if="scheduleReportSpinner == true">
+    <br>
+    <div class="spinner-container">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'REPORTS.LOADING' | translate}}<p/>
+    </div>
+    <br>
+</div>
+
+<div class="row" ng-if="scheduleReportSpinner == false">
+    <div class="small-12 columns">
+
+        <table class="pm-legacy-table list hover first">
+            <thead>
+                <tr>
+                    <th>{{::'Report' | translate}}</th>
+                    <th style="text-align:center">{{::'Frequency' | translate}}</th>
+                    <th style="text-align:center">{{::'Day' | translate}}</th>
+                    <th style="text-align:center">{{::'Hour' | translate}}</th>
+                    <th style="text-align:center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="report in reports track by $index">
+                    <td>
+                        <div class="truncation-container">
+                            <div class="truncation-content">{{::report.getReportName()}}</div>
+                            <div class="truncation-spacer">{{::report.getReportName()}}</div>
+                        </div>
+                    </td>
+                    <td style="text-align:center">
+                        {{report.getFrequency() | translate}}
+                    </td>
+                    <td style="text-align:center;white-space:nowrap">
+                        {{report.getDay()}}
+                    </td>
+                    <td style="text-align:center;white-space:nowrap">
+                        {{report.getHour()}} {{report.getAmpm()}}
+                    </td>
+                    <td style="width:1px">
+                        <div class="nowrap">
+                                <button class="pmcc-btn-sm pmcc-secondary" ng-click="remove(report.getId())">
+                                    <!-- <span class="th-trash">&nbsp;&nbsp;{{'REPORTS.DELETE' | translate}}</span> -->
+                                    <span class="th-trash"></span>
+                                </button>
+                                <button class="pmcc-btn-sm pmcc-secondary" ng-click="edit(report.getId())" style="margin-right:5px">
+                                    <!-- <span class="th-pencil">&nbsp;&nbsp;{{'REPORTS.EDIT' | translate}}</span> -->
+                                    <span class="fa fa-clock-o"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+

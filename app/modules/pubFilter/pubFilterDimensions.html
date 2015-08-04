@@ -1,0 +1,72 @@
+<div class="small-12 columns" id="{{visible ? 'visible-dimensions' : 'invisible-dimensions'}}">
+    <h2 class="h3 flat left primary">{{title}}</h2>
+
+        <div class="data-counter right">
+            <table>
+              <tbody>
+                <tr>
+                  <td>{{::'FILTER.REMAINING' | translate}}<br>{{::'FILTER.DIMENSIONS' | translate}}</td>
+                  <td class="{{remainingDimensions < 0 ? 'alert': ''}}">{{remainingDimensions}}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <!-- TODO: See user story ADS-528-->
+        <!-- <button class="button icon small invisible right" style="margin: 6px 5px 0 0">
+            <span class="th-add-to-list"></span>
+        </button> -->
+
+    <br>
+    <!-- Empty table -->
+    <table class="pm-legacy-table data-table-empty secondary-stripe" ng-if="!dimensions.length">
+        <thead>
+            <tr>
+                <th style="width:25%">{{::'FILTER.DIMENSIONS' | translate}}</th>
+                <th style="width:50%"></th>
+                <th style="width:25%"></th>
+            </tr>
+        </thead>
+        <tbody visible="{{visible}}">
+            <tr pub-filter-drag-and-drop empty="true">
+                <td>{{::'FILTER.NONE_SELECTED' | translate}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Visible dimensions -->
+    <table class="pm-legacy-table data-table primary-stripe" ng-if="dimensions.length">
+        <thead>
+            <tr>
+                <th>{{::'FILTER.DIMENSION' | translate}}</th>
+                <th>{{::'FILTER.FILTER' | translate}}</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody visible="{{visible}}">
+            <tr pub-filter-drag-and-drop ng-repeat="dimension in dimensions track by $index" empty="false" draggable="{{!isAggregator}}" ng-model="editableDimension" data-id="{{dimension.getId()}}" class="move-cursor">
+                <td>
+                    <div class="truncation-container">
+                        <div class="truncation-content">{{::dimension.getName()}}</div>
+                        <div class="truncation-spacer">{{::dimension.getName()}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="truncation-container">
+                        <div class="truncation-content">{{dimension.getDescription()}}</div>
+                        <div class="truncation-spacer">{{dimension.getDescription()}}</div>
+                    </div>
+                </td>
+                <td class="text-right nowrap">
+                    <span class="small icon" ng-if="showFilter(dimension)"><span class="fa fa-filter primary"></span></span>
+                    <button class="button small {{editableDimension && editableDimension.getId() === dimension.getId() ? 'active': 'invisible'}}" ng-click="edit(dimension)">{{'EDIT' | translate}}</button>
+                    <button ng-if="!isAggregator" class="button small invisible" ng-click="destroy(dimension)">{{'DELETE' | translate}}</button>
+                    <!--TODO: It's disabled by ADS-453. See user story ADS-491.
+                    <button class="button small invisible"><span class="fa fa-arrow-down"></span></button>-->
+                    <button id="drag-and-drop" class="button small invisible"><span class="fa fa-bars"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,105 @@
+<!-- OLD SCREEN -->
+
+
+<!-- HEADER -->
+<div class="row" ng-if = "dailySummary!=''">
+    <div class="small-12 columns">
+        <h1 class="flat">{{'DASHBOARD.RTD' | translate}}</h1>
+        <!-- <h2 class="right h1 flat">{{'DASHBOARD.CURRENT_TIME' | translate}} &ndash; {{'DASHBOARD.LAST_20_MIN' | translate}}</h2> -->
+    </div>
+</div>
+
+
+
+<hr ng-if="loadingTopTen == false">
+<br>
+
+<!-- TOP 10 TITLE & CONTROLS -->
+<div class="row">
+    <div class="small-12 columns">
+
+        <!-- TITLE -->
+        <div class="row" ng-if="loadingTopTen == false">
+            <div class="small-12 columns">
+                <h1>
+                    {{'DASHBOARD.TOP_10' | translate}} &ndash; {{'DASHBOARD.DAY_SUMMARY' | translate}}
+                </h1>
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="row" ng-show="loadingTopTen == false">
+            <div class="small-6 columns" ng-show="showSites">
+                <form>
+                    <span pm-select class="expand">
+                        <select ng-model="selectedSite" ng-change="changeSelectedSite()" ng-options="site.name for site in allSites">
+                        </select>
+                    </span>
+                </form>
+            </div>
+            <div class="small-3 columns">
+                <form>
+                    <span pm-select class="expand">
+                        <select ng-model="currentViewBy" ng-change="changeCurrentViewBy()" ng-options="metric.getName() for metric in metricList">
+                        </select>
+                    </span>
+                </form>
+            </div>
+            <div class="small-3 columns">
+                <h5>
+                    <label label="left">{{'DASHBOARD.DIMENSIONS' | translate}}</label>
+                    <pub-multiselect
+                        ng-if="isReadyDimensions"
+                        instructions="'Selected'"
+                        selector-items="availableDimensions"
+                        selections-settings="dimensionSelectionsSettings"
+                        selections-model="dimensionSelectionsModel"
+                        selections-done="selectDimensionFilter"
+                        selections-cancel="selectionsCancel"
+                        scroll
+                        class="dimensions-multiselect">
+                    </pub-multiselect>
+                </h5>
+            </div>
+            <div class="small-6 columns" ng-show="!showSites"></div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<!-- <div class="row">
+    <div class="spinner-container" ng-if="loadingTopTen == true">
+        <i class="fa fa fa-gear fa-spin fa-2x"></i><p>{{'DASHBOARD.LOADING' | translate}}<p/>
+    </div>
+</div> -->
+
+<!-- TOP 10 -->
+<div class="row">
+    <div class="small-6 columns left" ng-repeat="selectedObject in selectedDimensions" ng-if="loadingTopTen == false">
+        <table class="pm-legacy-table top-10">
+            <thead>
+                <tr>
+                    <th class="text-center">{{'DASHBOARD.RANK' | translate}}</th>
+                    <th>{{selectedObject.name}}</th>
+                    <th>{{currentViewByName}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="object in selectedObject.contents">
+                    <td ng-if="object.value" >{{$index + 1}}.</td>
+                    <td ng-if="!object.value">-</td>
+                    <td title="{{object.name}} " class="text-left">
+                        <div class="truncation-container">
+                            <div class="truncation-content">{{object.name}}</div>
+                            <div class="truncation-spacer">{{object.name}}</div>
+                        </div>
+                        <i ng-if="object.name == 'Loading...'" class='fa fa-gear fa-spin'> </i>
+                    </td>
+                    <td class="{{currentViewBy.getId() === 'paidImpressions' || object.name === 'Loading...' ? '' : 'dim-first-character'}}">{{object.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,433 @@
+<!--
+|^ |_| ]3 |\/| /\ ~|~ /? | ><
+A PubMatic Technology.
+Copyright PubMatic, Inc. 2014
+Designed and engineered in:
+Redwood City, California
+Pune, India
+//pubmatic.com
+-->
+
+<!doctype html>
+ <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/icons/ic57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/ic72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/ic114.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/images/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/images/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/images/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/images/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-startup-image" href="images/splash/ss1536x2008.jpg" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="images/splash/ss1496x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"/>
+    <link rel="apple-touch-startup-image" href="images/splash/ss768x1004.jpg" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" />
+    <link rel="apple-touch-startup-image" href="images/splash/ss748x1024.jpg" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" />
+    <link rel="apple-touch-startup-image" href="images/splash/ss640x1096.jpg" media="(device-width:320px) and (device-height:568px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="images/splash/ss640x920.jpg" media="(device-width:320px) and (device-height:480px) and (-webkit-device-pixel-ratio: 2)"/>
+    <link rel="apple-touch-startup-image" href="images/splash/ss320x460.jpg" media="(device-width:320px) and (device-height:480px) and (-webkit-device-pixel-ratio: 1)"/>
+
+    <meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"/><meta content="True" name="HandheldFriendly"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="silver"><meta name="description" content=""><!--<meta name="viewport" content="width=device-width">-->
+    <title>Analytics Mobile</title>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" type="text/css" href="bower_components/Snap.js-develop/snap.css" />
+        <link rel="stylesheet" type="text/css" href="bower_components/Snap.js-develop/demo/assets/demo.css" />
+    <link href="styles/font-awesome.css" rel="stylesheet">
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css" type="text/css" charset="utf-8" />
+    <!-- endbuild -->
+    <link rel="stylesheet" href="bower_components/tophat/css/main.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat/css/playpen/main.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat/css/playpen/sass/bullet-chart.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat/css/playpen/sass/containers.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat-multiselect/multiselect.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat-multiselect/threshold-slider.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/tophat/fonts/stylesheet.css" type="text/css" charset="utf-8" />
+
+
+
+
+    <link rel="stylesheet" href="styles/nvd3.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="styles/doug-temp-style.css" type="text/css" charset="utf-8" />
+
+
+
+
+    <!-- PM-ICON-FONT -->
+    <link rel="stylesheet" href="bower_components/tophat/playpen/icons/pm-icon-font.css">
+
+    <!-- multiSelect css -->
+    <!-- <link href="bower_components/isteven-angular-multiselect/angular-multi-select.css" rel="stylesheet"> -->
+    <!-- Angular ng dialog -->
+
+    <link rel="stylesheet" href="bower_components/tophat/css/playpen/sass/modals.css">
+
+    <!-- Stylesheet for PubMatic Common Components -->
+    <link rel="stylesheet" href="https://s3.amazonaws.com/pubmatic-cc/latest/pmcc.css">
+<style>
+div.app-header{
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  text-shadow: 0 -1px 0 #286090;
+  background-image: -webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);
+  background-image: -o-linear-gradient(top,#337ab7 0,#2b669a 100%);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#2b669a));
+  background-image: linear-gradient(to bottom,#337ab7 0,#2b669a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
+  background-repeat: repeat-x;
+  border-color: #2b669a;
+}
+div.app-header h2{
+      margin-top: 20px;
+    color: white!important;
+    text-align: center;
+}
+#content {
+  -webkit-box-shadow: -11px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -11px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: -11px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+.login-content {
+      background-color: #454545!important;
+      color: white;
+      height: 100%;
+      padding-top:30px;
+}
+
+.overlay-login{
+          position: fixed;
+          background: rgba(0,0,0,.4);
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          -webkit-backface-visibility: hidden;
+
+    }
+
+    .loading-login{
+     position: absolute;
+      left: 45%;
+      top: 40%;
+    }
+
+
+
+
+
+
+</style>
+</head>
+
+<!-- Add your site or application content here -->
+<div class="app-header" style="color:black;height:45px">
+    <a  id="open-left" ng-if="signedIn" style="position:fixed;  top: 8px;" ></a>
+        <h2>Analytics Mobile</h2>
+    </div>
+<body ng-app="pubSlicerApp" ng-controller="pubSlicerCtrl" style="background-color:#FFF">
+
+
+
+
+<pm-top-navigation ng-hide="true" settingsurl="{{settingsUrl}}"
+                   helpurl="{{helpUrl}}"
+                   signouturl="{{signOutLink}}">
+</pm-top-navigation>
+
+<sliding-drawer ng-if="signedIn" ></sliding-drawer>
+
+
+
+<div id="content" style="margin-top:45px;" class="" ng-class="signedIn? 'snap-content': 'login-content'" >
+
+    <pub-nlp-bar ng-hide="true"></pub-nlp-bar>
+    <div class="row" >
+        <div class="small-12 columns" style="padding-left:0px;padding-right:0px;">
+            <pub-notifications  ></pub-notifications>
+            <pub-nlp-result ></pub-nlp-result>
+            <div class="container" ng-view="" ></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="bower_components/Snap.js-develop/snap.js"></script>
+
+<script type="text/javascript" src="bower_components/Snap.js-develop/demo/assets/demo.js"></script>
+
+
+
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- END Dynamic Application Content -->
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+
+
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="common/extensions/angular-copy.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/d3-tip/index.js"></script>
+<script src="bower_components/nvd3/nv.d3.js"></script>
+
+<script src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="bower_components/angular-base64/angular-base64.js"></script>
+<script src="bower_components/datepicker/angularjs/angular.datepicker.js"></script>
+<script src="bower_components/ngDialog/js/ngDialog.js"></script>
+<script src="bower_components/angular-poller/angular-poller.js"></script>
+<script src="bower_components/ng-idle/angular-idle.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/tophat-multiselect/multiselect.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
+
+
+<!-- PubMatic Markup (HTML) -->
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/pmlComponent-module.js"></script>
+<!-- Temporarily use local version of pmApiTable to preserve Rohit's analytics specific features in this component -->
+<!--<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/elements/pmApiTable/pmApiTable-directive.js"></script>-->
+<script src="modules/pmlComponents/tags/pmApiTableBeta/pmApiTable-directive-beta.js"></script>
+<script src="modules/pmlComponents/tags/pmApiTableBeta/pmApiTable-service-beta.js"></script>
+<!--<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/elements/pmLongListSearch/pmLongListSearch-directive.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/elements/pmPageFooter/pmPageFooter-directive.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/pageTemplates/pmApplicationPage/pmApplicationPage-directive.js"></script>-->
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/navigation/pmTopNavigation/pmTopNavigation-config.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/navigation/pmTopNavigation/pmTopNavigation-directive.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/services/pmTokenStorageService.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/services/pmCommonApiService.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/services/pmApiService.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/services/pmComponentTemplateService.js"></script>
+<script src="bower_components/kickstartPmlComponents/app/components/pmlComponents/services/pmAclService.js"></script>
+
+
+<!-- endbower -->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+<!-- Common -->
+
+<script src="common/locales/translate/en-US.json"></script>
+<script src="common/common-module.js"></script>
+<script src="common/extensions/object.js"></script>
+<script src="common/extensions/mediator.js"></script>
+<!-- Common::Configs-->
+<script src="common/configs/config.js"></script>
+<script src="common/configs/middleware-routes.js"></script>
+<!-- Common::Locales-->
+<script src="common/locales/pub-locale.js"></script>
+<script src="common/locales/currency-symbol.js"></script>
+<!-- Common::Exceptions-->
+<script src="common/exceptions/pubTokenException.js"></script>
+<script src="common/exceptions/errorHttpInterceptor.js"></script>
+<!-- Common::Validations-->
+<script src="common/validations/validator.js"></script>
+
+<!-- Data Access Layer -->
+<script src="dao/module.js"></script>
+<script src="dao/endpoints.js"></script>
+<script src="dao/historic-dao.js"></script>
+<script src="dao/realtime-dao.js"></script>
+<script src="dao/measure-values-dao.js"></script>
+<script src="dao/benchmark-dao.js"></script>
+<script src="dao/system-notification-dao.js"></script>
+<script src="dao/facade.js"></script>
+
+<!-- Domain Layer -->
+<script src="domain/domain-module.js"></script>
+<!-- Domain Layer::Models-->
+<script src="domain/models/measure-model.js"></script>
+<script src="domain/models/measure-value-model.js"></script>
+<script src="domain/models/filter-model.js"></script>
+<script src="domain/models/metric-model.js"></script>
+<script src="domain/models/dimension-model.js"></script>
+<script src="domain/models/report-model.js"></script>
+<script src="domain/models/chart-model.js"></script>
+<script src="domain/models/page-model.js"></script>
+<script src="domain/models/date-model.js"></script>
+<script src="domain/models/scheduleReport-model.js"></script>
+<script src="domain/models/userSharedReport-model.js"></script>
+<script src="domain/models/alerts-model.js"></script>
+<script src="domain/models/alertsCount-model.js"></script>
+<script src="domain/models/alertsConfig-model.js"></script>
+<script src="domain/models/alertsUserSetting-model.js"></script>
+<script src="domain/models/benchmark-measure-value-model.js"></script>
+<script src="domain/models/benchmark-opportunity-measure-value-model.js"></script>
+<script src="domain/models/system-notification-model.js"></script>
+
+<!-- Domain Layer::Rules-->
+<script src="domain/rules/time-period-comparison-rules.js"></script>
+<script src="domain/rules/benchmarking-dimension-values-dispay-rules.js"></script>
+<script src="domain/rules/aggregator-rules.js"></script>
+<script src="domain/rules/alert-rules.js"></script>
+
+<!-- Domain Layer::Parsers-->
+<script src="domain/parsers/historic-compare-parser.js"></script>
+<script src="domain/parsers/historic-table-parser.js"></script>
+<script src="domain/parsers/day-summary-parser.js"></script>
+<script src="domain/parsers/time-series-parser.js"></script>
+<script src="domain/parsers/top-queries-parser.js"></script>
+<script src="domain/parsers/measure-values-parser.js"></script>
+<script src="domain/parsers/benchmark/benchmark-measure-values-parser.js"></script>
+<script src="domain/parsers/benchmark/benchmark-advertiser-opportunity-parser.js"></script>
+<script src="domain/parsers/benchmark/benchmark-advertiser-parser.js"></script>
+<script src="domain/parsers/benchmark/benchmark-advertiser-by-publisher-parser.js"></script>
+<script src="domain/parsers/benchmark/benchmark-parsers.js"></script>
+<script src="domain/parsers/benchmark/benchmark-metrics-filter.js"></script>
+<script src="domain/parsers/benchmark/benchmark-advertiser-name-parser.js"></script>
+<!-- Domain Layer::Services-->
+<script src="domain/services/dimensions-collection.js"></script>
+<script src="domain/services/dimensions-groups-map.js"></script>
+<script src="domain/services/dimensionValues-service.js"></script>
+<script src="domain/services/metrics-collection.js"></script>
+<script src="domain/services/pubNlp-service.js"></script>
+<script src="domain/services/pubURL-service.js"></script>
+<script src="domain/services/slicerURLParams-service.js"></script>
+<script src="domain/services/pubAnalytic-service.js"></script>
+<script src="domain/services/historicAPI-service.js"></script>
+<script src="domain/services/feedbackAPI-service.js"></script>
+<script src="domain/services/dataFormatting-service.js"></script>
+<script src="domain/services/reports-collection.js"></script>
+<script src="domain/services/alerts-collection.js"></script>
+<script src="domain/services/report-factory.js"></script>
+<script src="domain/services/alerts-factory.js"></script>
+<script src="domain/services/bTextProcessing-service.js"></script>
+<script src="domain/services/dashboard-service.js"></script>
+<script src="domain/services/benchmark-service.js"></script>
+<script src="domain/services/googleAnalytics-service.js"></script>
+<script src="domain/services/historic-measures-service.js"></script>
+<script src="domain/services/benchmark-state-service.js"></script>
+<script src="domain/services/system-notification-service.js"></script>
+<script src="domain/services/nlp-commands/slice.js"></script>
+<script src="domain/services/nlp-commands/dashboard.js"></script>
+<script src="domain/services/nlp-commands/config.js"></script>
+<script src="domain/services/nlp-commands/createReport.js"></script>
+<script src="domain/services/nlp-commands/help.js"></script>
+<script src="domain/services/nlp-commands/alerts.js"></script>
+<script src="domain/services/nlp-commands/standardReport.js"></script>
+<script src="domain/services/nlp-commands/customReport.js"></script>
+<script src="domain/services/nlp-commands/schedulereports.js"></script>
+<script src="domain/services/nlp-commands/benchmark.js"></script>
+<script src="domain/services/pubmaticLogin-service.js"></script>
+
+<!-- Domain Layer::Filters-->
+<script src="domain/filters/pubNumber-filter.js"></script>
+<script src="domain/filters/pubCurrency-filter.js"></script>
+<script src="domain/filters/pubPercentage-filter.js"></script>
+<script src="domain/filters/pubText-filter.js"></script>
+<script src="domain/filters/pubTime-filter.js"></script>
+<script src="domain/filters/pubQuarter-filter.js"></script>
+<script src="domain/filters/pubMonth-filter.js"></script>
+<script src="domain/filters/pubWeek-filter.js"></script>
+<script src="domain/filters/pubDate-filter.js"></script>
+<script src="domain/filters/pubHour-filter.js"></script>
+
+
+<!-- Modules -->
+<script src="modules/app-module.js"></script>
+<script src="modules/app.js"></script>
+<script src="modules/pubNlpBar/pubNlpBar-controller.js"></script>
+<script src="modules/pubNlpBar/pubNlpBar-directive.js"></script>
+<script src="modules/app-controller.js"></script>
+<script src="modules/router.js"></script>
+<script src="modules/toggleRoute.js"></script>
+<script src="modules/pubNlpBar/pubNlpInput/pubNlpInput-directive.js"></script>
+<script src="modules/pubNlpResult/pubNlpResult-controller.js"></script>
+<script src="modules/pubNlpResult/pubNlpResult-directive.js"></script>
+<script src="modules/slidingDrawer/slidingDrawer-directive.js"></script>
+<!--Componentized Directives "By outfit not drawer"-->
+
+<!-- PubMatic Data Service -->
+
+<!-- Conversations Panel -->
+<script src="modules/whenScrolled/whenScrolled-directive.js"></script>
+<script src="modules/whenScrolled/debounce.js"></script>
+<!-- PubMatic Charts Controls -->
+<script src="modules/pubCharts/pubChart-directive.js"></script>
+<script src="modules/pubCharts/pubChart-controller.js"></script>
+<script src="modules/pubCharts/charts/pubHeatMapChart/pubHeatmapChart-directive.js"></script>
+
+<!-- PubMatic Data Table Controls -->
+<script src="modules/pubTable/pubTable-service.js"></script>
+<script src="modules/pubTable/pubRow-directive.js"></script>
+<script src="modules/pubTable/pubTable-directive.js"></script>
+
+<!-- Main Screen Sections -->
+<script src="modules/pubSlicerScreen/pubSlicerScreen-controller.js"></script>
+<script src="modules/pubDashboard/pubDashboard-controller.js"></script>
+<script src="modules/pubConfigScreen/PubConfigScreen-controller.js"></script>
+<script src="modules/pubDimensions/pubDimensions-controller.js"></script>
+<script src="modules/pubDimensions/pubDimensionItem-directive.js"></script>
+<script src="modules/pubMetrics/pubMetrics-controller.js"></script>
+<script src="modules/pubMetrics/pubMetricItem-directive.js"></script>
+<script src="modules/pubCommonReports/pubCommonReports-controller.js"></script>
+<script src="modules/pubSavedReports/pubSavedReports-controller.js"></script>
+<script src="modules/pubScheduleReports/pubScheduleReports-controller.js"></script>
+<script src="modules/pubScheduleReports/create-editScheduleReports-controller.js"></script>
+<script src="modules/pubScheduleReports/emailValidation-directive.js"></script>
+<script src="modules/pubSharedReports/createSharedReports-controller.js"></script>
+<script src="modules/popup/removeReport-controller.js"></script>
+<script src="modules/pubAlerts/pubAlerts-controller.js"></script>
+<script src="modules/pubAlerts/pubAlertsDeleteConfirmationDialog-controller.js"></script>
+<script src="modules/pubAlerts/pubAlertsNoUsersSelectedDialog-controller.js"></script>
+<script src="modules/pubFilter/pubFilterDragAndDrop.js"></script>
+<script src="modules/pubFilter/pubFilterDimensions-directive.js"></script>
+<script src="modules/pubFilter/pubFilterEditDimension-directive.js"></script>
+<script src="modules/pubFilter/pubFilter-controller.js"></script>
+<script src="modules/pubDateDialog/pubDateDialog-directive.js"></script>
+<script src="modules/pubDateDialog/pubDateDialog-controller.js"></script>
+<script src="modules/pubDateDialog/benchmarkDateDialog-directive.js"></script>
+<script src="modules/pubDateDialog/benchmarkDateDialog-controller.js"></script>
+<script src="modules/pubLoginLinksScreen/pubLoginLinksScreen-controller.js"></script>
+<script src="modules/pubHelp/pubHelpScreen-controller.js"></script>
+<script src="modules/pubFooter/pubFooter-directive.js"></script>
+<script src="modules/pubFooter/pubFooter-controller.js"></script>
+<script src="modules/pubReportFeedback/pubReportFeedback-directive.js"></script>
+<script src="modules/pubBenchmark/benchmark-validation.js"></script>
+<script src="modules/pubBenchmark/benchmark-controller.js"></script>
+<script src="modules/pubBenchmark/benchmark-route.js"></script>
+
+<script src="modules/pubBenchmark/pubBulletTip-directive.js"></script>
+<script src="modules/pubBenchmark/pubBulletChart-directive.js"></script>
+<script src="modules/pubBenchmark/pubBulletOppotrunityTip-directive.js"></script>
+<script src="modules/pubBenchmark/pubBulletOppotrunityChart-directive.js"></script>
+<script src="modules/pubBenchmark/benchmarkMain-controller.js"></script>
+<script src="modules/pubBenchmark/pubBenchmark-trial/benchmark-trial-controller.js"></script>
+<script src="modules/pubBenchmark/pubBenchmark-trial/benchmark-expired-controller.js"></script>
+
+
+
+<!-- Save Dialog Controller -->
+<script src="modules/popup/saveReport-controller.js"></script>
+
+<!-- endbuild -->
+
+<script src="public/pubUniversalAnalytic-service.js"></script>
+<script src="https://s3.amazonaws.com/pubmatic-cc/latest/pmcc.js"></script>
+
+
+
+</body>
+<script>window.addEventListener('load', function(){FastClick.attach(document.body);},false);</script>
+</html>

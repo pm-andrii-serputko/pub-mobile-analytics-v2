@@ -1,0 +1,115 @@
+<style>
+    .no-hover:hover {
+        cursor: initial !important;
+        background-color: transparent !important;
+        color: black !important;
+    }
+    .alert-cell {
+        vertical-align: middle !important;
+    }
+    tr:hover .temp-hover {
+        color: white;
+    }
+    .alert-table td {
+        padding: 20px;
+    }
+    tr.alerts-line-item:hover td i {
+        color: white;
+    }
+</style>
+
+<!-- HTML View Template for the API enabled data block HTML element -->
+
+<!-- FILTER SEARCH INPUT
+    <form>
+        <input type="text" name="search" ng-model="searchTable" placeholder="Search" style="width:100%">
+    </form>-->
+
+<!-- HTML View Template for the API enabled data block HTML element -->
+
+<div class="row" ng-if="apiresponse != 'error' && apiresponse != 'waiting'">
+    <div id="pm-api-table-id" when-scrolled="loadMore(50)" style="overflow-y: scroll;" class="small-12 columns">
+        <table class="pm-legacy-table list hover alert-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-repeat="field in ::columnHeaderList track by $index">{{::field}}</th>
+                    <th style="text-align:center">Delete</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in apiresponse" >
+
+
+                <tr ng-init="sectionIndex = $index" class="alerts-line-item">
+                <!-- ng-click="callRowClick('rowclick', item)" -->
+                <!-- Removed "callRowClick" from TR, moved "toggleCollapse" from caret to TR -->
+
+                    <!-- ICON -->
+                    <td ng-click="toggleCollapse(sectionIndex)" style="width:1px;vertical-align:middle">
+                        <i class="{{::classname}}" ng-class="{success: item.rank===1, alert: item.rank===5}"></i>
+                    </td>
+
+                    <!--Nem, this td is the alerts name column-->
+                    <td ng-click="toggleCollapse(sectionIndex)" ng-if="$index===0" ng-repeat="field in fieldList track by $index" class="alert-cell">
+                        <i ng-class="setToggleCollapse[sectionIndex]? 'fa fa-caret-down':'fa fa-caret-right'"></i>
+                        <span ng-class="{bold: !item.readFlag}">{{::item[field]}}</span>
+                    </td>
+
+                    <!--Nem, this td is the alerts date column-->
+                    <td ng-click="toggleCollapse(sectionIndex)" ng-if="$index===1" ng-repeat="field in fieldList track by $index" style="vertical-align:middle">
+                        <!-- Please break this into two expressions, one for date, one for time -->
+                        <!-- Date goes inside span; timestamp goes inside small -->
+                        <span></span>
+                        <small class="gray nowrap temp-hover">{{::item[field]}}</small>
+                    </td>
+
+                    <!--Nem, this td contains rest of the fields-->
+                    <td ng-click="toggleCollapse(sectionIndex)" ng-if="$index>1" ng-repeat="field in fieldList track by $index">
+                        <span>{{::item[field]}}</span>
+                    </td>
+
+                    <td style="width:1px;text-align:center;vertical-align:middle">
+                        <button class="pmcc-btn-sm pmcc-secondary"  ng-click="removealertrow({item:item})" style="margin:0">
+                            <span class="pmcc-ico-delete"></span>
+                        </button>
+                    </td>
+                    <td></td>
+                    <!-- ROW BUTTONS -->
+                    <!-- <td>
+                        <div class="nowrap">
+                            <span ng-repeat="button in rowbuttons track by $index" style="display:inline" class="nowrap">
+                                <button class="button small alert-bg right" ng-click="callRowClick('rowButton', item, button)">
+                                    <span class={{button.icon}}></span>
+                                </button>
+                            </span>
+                        </div>
+                    </td> -->
+
+                </tr>
+                <tr ng-show="setToggleCollapse[sectionIndex]===true" class="no-hover">
+                    <td></td>
+                    <td>
+                        <!-- ToDo: Ask Joe how to fix the description to be more generic. -->
+                        <div><span class="bold">Name:</span> {{::item.title}}</div>
+                        <div>
+                            <small>
+                                <span class="bold">Description:</span> {{::item.description}}
+                            </small>
+                        </div>
+                    </td>
+                     <td ng-repeat="field in fieldList track by $index"></td>
+                     <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div ng-if="apiresponse =='error'">
+    <br/>
+    <div class="alert-box success-bg">
+        <i class="fa fa-gear"></i> Please be patient.  This information is not yet available</span>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+<!--Nem : Todo: These classes need to be removed and replaced. -->
+<style>
+    .button.buttonFocus {
+        background-color : #0196d8;
+        border : 2px solid #0196d8;
+        color: #fff;
+    }
+    .button.buttonFocusCancel {
+        background-color : #e7e7e7;
+        border : 2px solid #e7e7e7;
+        color: #222;
+    }
+</style>
+
+<div
+    ng-contoller="sharedReportCtrl"
+    class="schedule ngdialog-message"
+    style="margin-bottom:1em">
+
+    <!-- HEADER -->
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="scheduleTitle">{{::'REPORTS.SHARED_REPORT_TITLE' | translate}}</h1>
+        </div>
+    </div>
+
+    <!-- Report Title -->
+    <div class="row">
+        <div class="small-12 columns">
+            <form>
+                <label>{{::'REPORTS.REPORT_TITLE' | translate}}
+                <div pm-input>
+                    <input id="reportNameShare" ng-disabled="!showCheckbox" ng-keypress="callSave($event)" type="text" ng-change="reportCheckMethod()" ng-model="saveObject.reportName" style="width:100%" placeholder="My custom report" />
+                </div>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Search Users -->
+    <div class="row">
+        <div class="small-12 columns">
+            <form>
+                <label>{{::'REPORTS.SHARED_MULTISELECT_TITLE' | translate}}
+                    <div pm-input>
+                        <input type="text" placeholder="Search User" ng-model="sharedLookupQuery.fullName" class="expand">
+                    </div>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <!-- Select Users -->
+    <div class="row" style="margin-top: 5px">
+        <div class="small-12 columns">
+            <div class="multi-select-list show-5 scroll">
+                <ul class="primary-stripe">
+                    <li ng-repeat=" sharedItem in sharedLookup | filter: sharedLookupQuery | orderBy:['firstName', 'lastName'] track by $index" ng-click="changeUserSelection(sharedItem)">
+                    <div class="nowrap">
+                        <span style="display:inline">
+                            <i class="fa checkbox {{(saveObject.selectedUsersValueIds.indexOf(sharedItem.userId)===-1) ? 'fa-square-o': 'fa-check-square-o'}}"></i>
+                        </span>
+                        &nbsp;
+                        <span class="nowrap">
+                            {{sharedItem.firstName}} {{sharedItem.lastName}}
+                        </span>
+                        <span>
+                            <span class="gray small"><{{sharedItem.email}}></span>
+                        </span>
+                        <div class="clearfix"></div>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- EMAIL BODY -->
+    <div class="row">
+        <div class="small-12 columns">
+            <label>{{::'REPORTS.SHARED_TEXT' | translate}}
+                <div pm-input>
+                    <textarea maxlength="254" style="resize:none;height:115px;width:100%" ng-model="saveObject.message" rows="6" cols="56" placeholder="Enter a message..."></textarea>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <!-- ERROR MESSAGES -->
+    <div class="row">
+        <div class="small-12 columns">
+            <!-- Notification messsages-->
+            <small ng-class="shareOrSaveSuccess? 'success' : 'alert'">
+                {{sharedReportValidationMessage}}
+            <br/>
+            </small>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- CANCEL/SAVE -->
+    <div class="row ngdialog-buttons">
+        <div class="small-6 columns">
+            <form class="left" ng-show="showCheckbox" style="margin-top:10px;margin-left:-15px">
+                <input type="checkbox" ng-model="savecopy" ng-disabled="cancelDisabled" ng-change="reportCheckMethod()" id="savecopy" name="savecopy"/>
+                <label for="savecopy"><span></span>{{::'REPORTS.SHARED_SAVE_COPY' | translate}}</label>
+            </form>
+        </div>
+        <div class="small-6 columns">
+            <button
+                ng-show="isShareCancelEnabled()"
+                ng-focus="focusedShare = true"
+                ng-blur="focusedShare = false"
+                ng-click="save()"
+                ng-disabled="!okDisabled"
+                ng-class="{ 'disabled': !okDisabled,
+                            'buttonFocus': focusedShare && okDisabled}"
+                class="pm-button primary right"
+                style="margin-left:5px">
+                {{::'REPORTS.SHARE' | translate}}
+            </button>
+
+            <button ng-focus="focusedCancel=true"
+                ng-show="isShareCancelEnabled()"
+                ng-blur="focusedCancel=false"
+                ng-disabled="cancelDisabled"
+                type="button"
+                ng-class= "{'buttonFocusCancel':focusedCancel,
+                            'disabled': cancelDisabled}"
+                class="pm-button default right"
+                ng-click="closeThisDialog()">
+                {{::'CANCEL' | translate}}
+            </button>
+
+            <button
+                ng-show="isYesNoEnabled()"
+                ng-focus="focusedShare = true"
+                ng-blur="focusedShare = false"
+                ng-disabled="!okDisabled"
+                ng-click="save()"
+                ng-class="{ 'disabled': !okDisabled,
+                            'buttonFocus': focusedShare && okDisabled}"
+                class="pm-button alert right"
+                style="margin-left:5px">
+                {{::'REPORTS.YES' | translate}}
+            </button>
+
+            <button ng-focus="focusedCancel=true"
+                ng-blur="focusedCancel=false"
+                ng-show="isYesNoEnabled()"
+                ng-disabled="cancelDisabled"
+                type="button"
+                ng-class= "{'buttonFocusCancel':focusedCancel,
+                            'disabled': cancelDisabled}"
+                class="pm-button default right"
+                ng-click="closeThisDialog()">
+                {{::'REPORTS.NO' | translate}}
+            </button>
+        </div>
+    </div>
+
+</div>

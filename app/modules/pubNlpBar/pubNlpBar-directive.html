@@ -1,0 +1,39 @@
+<!-- Sets the NLP-BAR div to a 30px margin that aligns with the body -->
+<div class="nlp-bar" style="
+    position:relative;
+    z-index:0;
+    transition-duration: 500ms;
+    margin-right:0px;
+    width: 100%;
+    border: none;
+    margin-top: 45px;">
+
+<div class="row" style="margin-left:25px">
+    <div id="parent" style="width:100%">
+        
+        <div class="nlp-input-label bold">What Would You Like to Do?</div>
+        <br/>
+        
+        <div>
+            <!-- NLP INPUT -->
+            <div class="nlp-wrapper" style="width: 90%;">
+                <div placeholder="" id="nlpBar" ng-paste="nlpPaste = true" pub-nlp-input spellcheck="false" contenteditable={{canEdit}} ng-class="cursorSwitcher" ng-model="nlpDisplay" class="nlp-input">
+                    <h1 class="flat"><span class="fa fa-question-circle"></span></h1>
+                </div>
+                <div class="nlp-button-close">
+                    <div class="nlp-button-hit-area">
+                        <i class="pm-icon-remove" style="font-size:15px;margin-top:-1px" ng-click="clearNlp()" ng-show="nlpDisplay.length"></i>
+                    </div>
+                </div>
+            </div>
+            <span style="left:{{tooltipPosition}}" ng-if="showTooltip == true" class="tooltip">{{tooltipContent}}</span>
+            
+        </div>
+    </div>
+    
+    <!--This overlay is to help close the alerts dropdown-->
+    <div ng-click="closeDropdownMenu()" id="closeAlertDropdown" ng-class="{'overlay-dropdown-menu':alertDropdownClosed}"></div>
+    
+</div>
+
+</div>

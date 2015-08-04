@@ -1,0 +1,50 @@
+{
+    "DASHBOARD": {
+        "RTD": "Tiempo real Dashboard",
+        "CURRENT_TIME": "Hora",
+        "LAST_20_MIN": "hace 20 minutos",
+        "LOADING": "Recuperando datos de up-to-the-minute ...",
+        "DAY_SUMMARY": "Resumen del Día",
+        "REVENUE": "Ingresos",
+        "PAID_IMPRESSIONS": "Impresión",
+        "ECPM": "eCPM",
+        "DATA_ON": "Datos On",
+        "DATA_OFF": "Datos apagados",
+        "TOP_10": "Top 10",
+        "SELECT_SITE": "Seleccionar sitio",
+        "SELECT": "Seleccionar",
+        "VIEW_BY": "Ver por",
+        "DIMENSIONS": "Dimensiones"
+    },
+    "SEARCH": {
+        "ALL_PUBMATIC_REPORTS": "Todos los informes de PubMatic",
+        "HOW_ABOUT": "¿Qué tal intentar algo como esto?",
+        "BUILD_REPORTS_ON_FLY": "Construir informes sobre la marcha escribiendo",
+        "VIEW_BUISINESS_SUMMARY": "Ver el resumen de su negocio actual por tipo",
+        "HERE_WHAT_WE_FOUND_FOR": "Esto es lo que hemos encontrado por"
+    },
+    "NLP": {
+        "SLICE": "slice",
+        "DASHBOARD": "dashboard"
+    },
+    "SLICER": {
+        "REPORT_TITLE": "Crear un informe personalizado",
+        "DOWNLOAD_EXCEL_FILE": "Descargar como archivo de Excel",
+        "DOWNLOAD_CSV_FILE": "Descargar como archivo CSV"
+    },
+    "CONFIG": {
+        "TITLE": "Config",
+        "APP_VERSION": "Versión de la aplicación",
+        "BUILD_DATA": "Construir datos",
+        "GIT_COMMIT": "Git Commit",
+        "SELECT": "Selecciona Idioma"
+    },
+    "Site": "Sitio",
+    "Advertiser": "Anunciante",
+    "Dsp": "DSP",
+    "Campaign": "Campaña",
+    "Rule": "Regla",
+    "Revenue": "Ingresos",
+    "Impression": "Impresión",
+    "ECPM": "eCPM"
+}

@@ -1,0 +1,16 @@
+<div bullet-chart-container="outer">
+    <div bullet-chart-container="inner">
+        <div class="bullet-opportunity-chart-bar">
+            <div class="left-bar nowrap" style="width:{{valuePercentage}}">&nbsp;</div>
+            <div class="right-bar nowrap">{{opportunity}}</div>
+            <div style="height: 3px;"></div>
+            <span class="nowrap bullet-opportunity-chart-value" style="float:left" ng-hide="hideValue">{{value}}</span>
+            <span class="nowrap bullet-opportunity-chart-value" style="float:right">{{potential}}</span>
+        </div>
+
+        <!-- HASHES -->
+        <div bullet-opportunity-chart-hash="25%"></div>
+        <div bullet-opportunity-chart-hash="50%"></div>
+        <div bullet-opportunity-chart-hash="75%"></div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<style>
+    /* remove the animation of all dialog */
+    .ngdialog-content {
+        -webkit-animation: none;
+        animation: ngdropDown-slideDown none;
+    }
+    .test-link {
+          display: block;
+          border-bottom: 1px solid rgba(0,0,0, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 15px;
+          font-weight: bold;
+          text-decoration: none;
+          text-indent: 20px;
+          color:black;
+    }
+
+    .test-link:hover {
+          color:black;
+    }
+</style>
+
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px">
+    <div class="small-12 columns">
+        <h1 class="flat" style="padding:10px;">{{::'REPORTS.CUSTOM_REPORTS' | translate}}</h1>
+    </div>
+</div>
+
+<hr>
+<!-- DATA TABLE -->
+<!-- SPINNER -->
+<div class="row" ng-if="customReportSpinner == true">
+    <br>
+    <div class="spinner-container">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'REPORTS.LOADING' | translate}}<p/>
+    </div>
+    <br>
+</div>
+
+<div ng-if="customReportSpinner == false" class="row">
+    <div class="small-12 columns">
+        <ul style="list-style-type: none;">
+            <li ng-click="showReport(report)" style="  margin-bottom: .5em; line-height: 1.25em;" ng-repeat="report in reports track by $index"> <a  class="test-link ">{{::report.name}}  </a> </li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+
+<style>
+    tr:hover .temp-hover {
+        color: white;
+    }
+</style>

@@ -1,0 +1,46 @@
+<!-- HEADER -->
+<div class="row">
+    <div class="small-12 columns">
+        <h1 class="flat">{{'CONFIG.TITLE' | translate}}</h1>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="small-12 columns">
+        <table class="pm-legacy-table data-table list first">
+            <thead>
+                <th>What</th>
+                <th>What it is</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{'CONFIG.APP_VERSION' | translate}}</td>
+                    <td>{{version}}</td>
+                </tr>
+                <tr>
+                    <td>{{'CONFIG.BUILD_DATA' | translate}}</td>
+                    <td>{{buildDate}}</td>
+                </tr>
+                <tr>
+                    <td>{{'CONFIG.GIT_COMMIT' | translate}}</td>
+                    <td>{{gitCommit}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-4 columns">
+        <form>
+            <label>{{'CONFIG.SELECT' | translate}}
+                <span pm-select class="expand">
+                    <select ng-model="locale" ng-change="changeLocale()">
+                        <option value="en-us">EN</option>
+                    </select>
+                </span>
+            </label>
+        </form>
+    </div>
+</div>

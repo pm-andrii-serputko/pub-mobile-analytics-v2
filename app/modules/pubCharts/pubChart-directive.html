@@ -1,0 +1,375 @@
+<style>
+/*Temp css for regression line, need to put in tophat*/
+.nvd3 .nv-groups g.regression path.nv-line {
+  stroke-width: 2;
+}
+.nvd3.nv-dualScale .nv-groups path.nv-line {
+  stroke-width: 2px;
+}
+.grayout-table-dimension{
+  pointer-events:none;
+}
+
+.grayout-table-dimension button{
+  color: #ccc;
+}
+
+/* new report page chart tool tip   */
+.nvtooltip{
+  background-color: #fff;
+  color:#000;
+}
+
+.chart-notification{
+   left: 35%;
+}
+.heatmap-chart-notification{
+   height: 350px;
+   position: relative;
+   padding-top: 150px;
+   left: 0%;
+}
+.heatmap-chart-notification .chart-notification-text{
+   font-size: 18px;
+   font-weight: bold;
+   color: black;
+}
+
+.ngdropdown{
+   right: 0;
+   margin-top: 35px;
+}
+
+
+/* nvd3 style changes */
+.nvd3 .nv-y .nv-wrap .tick line{
+  opacity: 0.6!important;
+}
+.nvd3 .nv-axis.nv-x path.domain {
+   stroke-opacity: 1;
+}
+.nvd3.nv-discreteBarWithAxes .nv-axis.nv-x path.domain {
+   stroke-width:2px;
+}
+
+.nv-axislabel{
+   font-size: 14px;
+}
+
+</style>
+
+<div  ng-if="loadingChart" class="chart-notification" style="left: 10%;font-size: 15px;">
+   <div class="chart-notification-text">{{'CHART.FASTER' | translate}}</div>
+</div>
+
+<div ng-if="!loadingChart && !heatdataObject  && (selectedChart == 'heatmap')" class="heatmap-chart-notification">
+   <div class="chart-notification-text">{{'CHART.NOT_AVAILABLE' | translate}}</div>
+</div>
+
+<div ng-if="!loadingChart  && isCompare && (selectedChart == 'heatmap')  && (compareValue === 'compareAbsoluteValue')" class="heatmap-chart-notification">
+   <div class="chart-notification-text">{{'CHART.HEATMAP_COMPARE_NOT_AVAILABLE' | translate}}</div>
+</div>
+
+<div ng-if="!loadingChart  && (isCompare == true) && (selectedChart == 'piechart')" class="heatmap-chart-notification">
+   <div class="chart-notification-text">{{'CHART.PIECHART_COMPARE_NOT_AVAILABLE' | translate}}</div>
+</div>
+
+
+<nvd3-dual-scale-line-chart
+   ng-if="!loadingChart && selectedChart == 'linechart'  && !isCompare && isDualScale"
+   data="dataObject"
+   tooltips="true"
+   height= "350"
+   width = "1210"
+   margin="{left:75,right:51}"
+   x="lineXfunction()"
+   y="lineYfunction()"
+   showXAxis="true"
+   showYAxis="true"
+   objectequality="true"
+   interactive="true"
+   y1AxisLabel="{{chartMetricName}}"
+   y2AxisLabel="{{dualMetricName}}"
+   tooltipContent="lineToolTipContentFunction()"
+   showLegend="true"
+   legendColor="compareLineColorFunction()"
+   legendupdatestate = "false"
+   y1AxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   y2AxisTickFormat="yAxisTickFormatFunction(chartCurrency, true)"
+   xAxisTickFormat="lineXaxisFunction()"
+   xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+   color="compareLineColorFunction()"
+   transitionduration="800"
+   delay="500"
+   >
+</nvd3-dual-scale-line-chart>
+
+
+<nvd3-dual-scale-line-chart
+   ng-if="!loadingChart && selectedChart == 'linechart' && isCompare && compareValue === 'compareAbsoluteValue' && isDualScale"
+   data="dataObject"
+   tooltips="true"
+   height= "350"
+   width = "1210"
+   margin="{left:75,right:51}"
+   x="lineXfunction()"
+   y="lineYfunction()"
+   showXAxis="true"
+   showYAxis="true"
+   objectequality="true"
+   interactive="true"
+   y1AxisLabel="{{chartMetricName}}"
+   y2AxisLabel="{{dualMetricName}}"
+   tooltipContent="compareLineToolTipContentFunction()"
+   showLegend="true"
+   legendColor="compareLineColorFunction()"
+   legendupdatestate = "false"
+   y1AxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   y2AxisTickFormat="yAxisTickFormatFunction(chartCurrency, true)"
+   xAxisTickFormat="compareLineXaxisFunction()"
+   xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+   color="compareLineColorFunction()"
+   transitionduration="800"
+   delay="500"
+   >
+</nvd3-dual-scale-line-chart>
+
+<nvd3-dual-scale-line-chart
+      ng-if="!loadingChart && selectedChart == 'linechart' && isCompare && compareValue !== 'compareAbsoluteValue' && isDualScale"
+      data="dataObject"
+      tooltips="true"
+      height= "350"
+      width = "1210"
+      margin="{left:75,right:51}"
+      x="lineXfunction()"
+      y="lineYfunction()"
+      showXAxis="true"
+      showYAxis="true"
+      objectequality="true"
+      interactive="true"
+      y1AxisLabel="{{chartMetricName}}"
+      y2AxisLabel="{{dualMetricName}}"
+      tooltipContent="compareLineToolTipContentFunction()"
+      showLegend="true"
+      legendColor="compareLineColorFunction()"
+      legendupdatestate = "false"
+      y1AxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+      y2AxisTickFormat="yAxisTickFormatFunction(chartCurrency, true)"
+      xAxisTickFormat="compareLineXaxisFunction()"
+      xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+      color="compareLineColorFunction()"
+      transitionduration="800"
+      delay="500"
+      >
+</nvd3-dual-scale-line-chart>
+
+
+<nvd3-line-chart
+   ng-if="(dataObject.length!==0 ) && !loadingChart && selectedChart == 'linechart'  && !isCompare  && !isDualScale"
+   data="dataObject"
+   height= "350"
+   showXAxis="true"
+   showYAxis="true"
+   x="lineXfunction()"
+   y="lineYfunction()"
+   objectequality="true"
+   xAxisTickFormat="lineXaxisFunction()"
+   yAxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   transitionduration="800"
+   delay="500"
+   tooltipContent="lineToolTipContentFunction()"
+   tooltips="true"
+   interactive="true"
+   color="lineBarColorFunction()"
+   margin="{left:75,right:31}"
+   showLegend="true"
+   legendColor="lineBarColorFunction()"
+   legendupdatestate = "false"
+
+   xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+   >
+</nvd3-line-chart>
+
+
+<nvd3-line-chart
+   ng-if="!loadingChart && selectedChart == 'linechart'  && isCompare && compareValue === 'compareAbsoluteValue'  && !isDualScale"
+   data="dataObject"
+   showXAxis="true"
+   height= "350"
+   showYAxis="true"
+   x="lineXfunction()"
+   y="lineYfunction()"
+   objectequality="true"
+   xAxisTickFormat="compareLineXaxisFunction()"
+   yAxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   transitionduration="800"
+   delay="500"
+   showLegend="true"
+   legendColor="compareLineColorFunction()"
+   tooltips="true"
+   legendupdatestate = "false"
+   tooltipContent="compareLineToolTipContentFunction()"
+   interactive="true"
+   color="compareLineColorFunction()"
+   margin="{left:75,right:51}"
+
+   xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+   >
+</nvd3-line-chart>
+
+
+<nvd3-line-chart
+   ng-if="!loadingChart && selectedChart == 'linechart' && isCompare && compareValue !== 'compareAbsoluteValue'  && !isDualScale"
+   data="dataObject"
+   showXAxis="true"
+   height= "350"
+   showYAxis="true"
+   x="lineXfunction()"
+   y="lineYfunction()"
+   objectequality="true"
+   xAxisTickFormat="compareLineXaxisFunction()"
+   yAxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   transitionduration="800"
+   delay="500"
+   showLegend="true"
+   legendupdatestate = "false"
+   legendColor="lineBarColorFunction()"
+   tooltips="true"
+   tooltipContent="compareLineToolTipContentFunction()"
+   interactive="true"
+   color="lineBarColorFunction()"
+   margin="{left:75,right:51}"
+
+   xAxisLabel = "{{'CHART.'+timeseriesBy | translate}}"
+   >
+</nvd3-line-chart>
+
+
+<nvd3-discrete-bar-chart
+   ng-if="!loadingChart && selectedChart == 'barchart' && (!isCompare || (isCompare &&  compareValue !== 'compareAbsoluteValue')  )"
+   data="dataObject"
+   useInteractiveGuideline="true"
+   xAxisRotateLabels="-35"
+   height="400"
+   showXAxis="true"
+   showYAxis="true"
+   transitionduration="200"
+   delay="300"
+   xAxisTickFormat="barXaxisFunction()"
+   yAxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   tooltipContent="barToolTipContentFunction()"
+   tooltips="true"
+   objectequality="true"
+   interactive="true"
+   color="barColorFunction()"
+   margin="{left:75,bottom:150,right:3}"
+   xAxisLabel="{{chartDimensionName}}"
+   >
+</nvd3-discrete-bar-chart>
+
+
+<nvd3-multi-bar-chart
+   ng-if="!loadingChart && selectedChart == 'barchart' && isCompare && compareValue === 'compareAbsoluteValue'"
+   data="dataObject"
+   useInteractiveGuideline="true"
+   xAxisRotateLabels="-35"
+   height="400"
+   showXAxis="true"
+   showYAxis="true"
+   transitionduration="200"
+   delay="300"
+   showLegend="true"
+   xAxisTickFormat="barXaxisFunction()"
+   yAxisTickFormat="yAxisTickFormatFunction(chartCurrency)"
+   tooltipContent="barCompareToolTipContentFunction()"
+   tooltips="true"
+   objectequality="true"
+   interactive="true"
+   color="barCompareColorFunction()"
+   legendColor="barCompareColorFunction()"
+   margin="{left:75,bottom:150}"
+
+   xAxisLabel="{{chartDimensionName}}"
+   >
+</nvd3-multi-bar-chart>
+
+
+<nvd3-pie-chart
+   ng-if="!loadingChart && selectedChart == 'piechart'  && !isCompare"
+   data="dataObject"
+   color="lineBarColorFunction()"
+   objectequality="true"
+   transitionduration="1000"
+   height= "350"
+   delay="1000"
+   x="pieXfunction()"
+   y="pieYfunction()"
+   tooltips="true"
+   tooltipContent="pieToolTipContentFunction(chartCurrency)"
+   labelType="percent"
+   showLabels="true"
+   showLegend="true"
+   legendColor="lineBarColorFunction()"
+   legendupdatestate = "false">
+</nvd3-pie-chart>
+
+<pub-heatmap-chart
+   id="heatmap"
+   width="{{chartContainerWidth}}"
+   ng-if="!loadingChart && selectedChart == 'heatmap' &&  (!isCompare)"
+   chart-currency="{{chartCurrency}}"
+   data="{{heatdataObject}}">
+</pub-heatmap-chart>
+
+<pub-heatmap-chart
+   id="heatmap"
+   height="350"
+   margin="{left:75,top:100,bottom:100,right:20}"
+   width="{{chartContainerWidth}}"
+   ng-if="!loadingChart && selectedChart == 'heatmap' &&  (isCompare) && (compareValue != 'compareAbsoluteValue')"
+   chart-currency="{{chartCurrency}}"
+   data="{{heatdataObject}}">
+</pub-heatmap-chart>
+
+<nvd3-scatter-chart
+   ng-if="!loadingChart && selectedChart=='scatterchart'"
+   data="dataObject"
+   delay="1000"
+   height="350"
+   margin="{left:75,top:40,bottom:50,right:20}"
+   tooltips="true"
+   interactive="true"
+   showLabels="true"
+   objectequality="true"
+   tooltipContent="scatterBubbleTooltip(chartCurrency)"
+   shape="getShapeCircle()"
+   addSize="false"
+   color= "scatterBubbleColorArrayFunction()"
+   xAxisTickFormat="scatterBubbleXAxisTick(chartCurrency)"
+   yAxisTickFormat="scatterBubbleYAxisTick(chartCurrency)"
+   yAxisLabel="{{yAxis}}"
+   xAxisLabel="{{xAxis}}">
+   <svg></svg>
+ </nvd3-scatter-chart>
+
+<nvd3-scatter-chart
+   ng-if="!loadingChart && selectedChart=='bubblechart'"
+   data="dataObject"
+   delay="1000"
+   height="350"
+   margin="{left:75,top:40,bottom:50,right:50}"
+   tooltips="true"
+   objectequality="true"
+   interactive="true"
+   showLabels="true"
+   tooltipContent="scatterBubbleTooltip(chartCurrency)"
+   shape="getShapeCircle()"
+   addSize="true"
+   color= "scatterBubbleColorArrayFunction()"
+   xAxisTickFormat="scatterBubbleXAxisTick(chartCurrency)"
+   yAxisTickFormat="scatterBubbleYAxisTick(chartCurrency)"
+   yAxisLabel="{{yAxis}}"
+   xAxisLabel="{{xAxis}}">
+   <svg></svg>
+</nvd3-scatter-chart>
+

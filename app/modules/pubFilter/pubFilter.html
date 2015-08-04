@@ -1,0 +1,96 @@
+<!--
+|^ |_| ]3 |\/| /\ ~|~ /? | ><
+A PubMatic Technology.
+Copyright PubMatic, Inc. 2014
+Designed and engineered in:
+Redwood City, California
+Pune, India
+//pubmatic.com
+-->
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px">
+    <div class="small-6 columns">
+        <h1 class="flat">{{::'FILTER.SPECIFY_DIMENSIONS_FILTERS' | translate}}</h1>
+        <p style="font-size:.8em;line-height:1.25em">Within the Select Dimension list to re-order the tabular data, and within the Dimension as a Filter list to use the dimensions as filters.</p>
+    </div>
+</div>
+
+<hr>
+
+<div class="row" ng-show="errorMessage">
+    <div class="small-12 columns">
+
+        <div class="alert-box alert-bg" ng-click="hideErrorTip()">
+            <p class="flat">
+                {{errorMessage | translate}}
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- DIMENSION BUCKETS -->
+<div class="row">
+    <!-- Visible dimensions -->
+    <div pub-filter-dimensions 
+        title="{{::'FILTER.SELECTED_DIMENSIONS' | translate}}" 
+        edit="edit" 
+        destroy="destroy" 
+        editable-dimension="editableDimension" 
+        max-dimensions="5" 
+        drop="drop" 
+        dimensions="visibleDimensions" 
+        visible="true" 
+        class="inset primary-border">
+    </div>
+</div>
+<div class="row">
+    <!-- DIMENSION FILTERING EDIT DIALOG -->
+    <div pub-filter-edit-dimension ng-if="editableDimension && editableDimension.getVisible()"
+        cancel-editing="cancelEditing"
+        save="save"
+        editable-dimension="editableDimension"
+        class="inset primary-border">
+    </div>
+</div>
+
+<div class="row">
+    <!-- Dimension as a filter -->
+    <div pub-filter-dimensions
+        title="{{::'FILTER.DIMENSIONS_AS_FILTER' | translate}}"
+        edit="edit"
+        destroy="destroy"
+        editable-dimension="editableDimension"
+        max-dimensions="5"
+        drop="drop"
+        dimensions="invisibleDimensions"
+        visible="false"
+        class="inset secondary-border">
+    </div>
+    <!-- DIMENSION FILTERING EDIT DIALOG -->
+    <div pub-filter-edit-dimension ng-if="editableDimension && !editableDimension.getVisible()"
+        cancel-editing="cancelEditing"
+        save="save"
+        editable-dimension="editableDimension"
+        class="inset secondary-border">
+    </div>
+</div>
+
+<!-- CANCEL/DONE BUTTONS -->
+<hr>
+
+<div class="row">
+    <div class="small-12 columns">
+        <a ng-if="isAggregator !== true" ng-class="{'disabled': editableDimension}"  class="pm-button default" ng-click="goToDimensionsScreen()">{{::'BACK' | translate}}</a>
+        <div class="right">
+            <button class="pm-button default {{editableDimension ? 'disabled': '' }}" ng-click="cancel()">{{::'CANCEL' | translate}}</button>
+            <a ng-if="isAggregator !== true" ng-class="{'disabled': editableDimension}" class="pm-button primary" ng-click="goToMetricsScreen()">{{::'FILTER.SELECT_METRICS' | translate}}</a>
+            <button class="pm-button success {{editableDimension ? 'disabled': '' }}" ng-click="generate()">{{::'FILTER.CREATE_REPORT' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>

@@ -1,0 +1,804 @@
+<style>
+    /* multiselect style overrides */
+    [pub-icon~="right"] {
+        float: right;
+    }
+    .pub-multiselect-container .multiselect__trigger {
+        /*z-index: 990;*/
+    }
+    .pub-multiselect-container button {
+        text-align: left;
+        border: 1px solid #c9c9c9;
+        box-shadow: 0 1px 5px rgba(0,0,0,.075);
+    }
+    .pub-multiselect-container button:hover {
+        background-color: #fff;
+        color: #000;
+        transition: none;
+    }
+    .pub-multiselect-container button.active:hover {
+        background-color: #fafafa;
+    }
+    .pub-multiselect-container button.active {
+        box-shadow: none;
+        /*z-index: 990;*/
+    }
+    .pub-multiselect-container button.active.right:hover {
+        background-color: #fff;
+    }
+
+    pub-multiselect .dropdown {
+        border: 1px solid #c9c9c9;
+    }
+
+    pub-multiselect .controls button {
+        font-size: 13px;
+        padding: 8px 10px 6px 11px;
+    }
+
+    pub-multiselect button.active {
+        border-color: #c9c9c9;
+    }
+
+    /* benchmark-specific overrides */
+
+    [sales-channel-multiselect] .multiselect__trigger {
+        width: 203px;
+    }
+    [platform-multiselect] .multiselect__trigger {
+        width: 236px;
+    }
+    [ad-format-multiselect] .multiselect__trigger {
+        width: 223px;
+    }
+    [ad-size-multiselect] .multiselect__trigger {
+        width: 239px;
+    }
+    [ad-size-multiselect] .pub-multiselect-container div.dropdown input {
+        width: 175px;
+    }
+    [metrics-multiselect] .multiselect__trigger {
+        width: 135px;
+    }
+
+
+    /* Define size of select to be same width as dropdown (Single column-select) */
+    [category-multiselect] .multiselect__trigger, [category-multiselect] .pub-multiselect-container div.dropdown {
+        width: 279px;
+    }
+    /* Widen search input */
+    [category-multiselect] .pub-multiselect-container div.dropdown input {
+        width: 200px;
+    }
+
+
+    [advertiser-1-multiselect] .multiselect__trigger, [advertiser-1-multiselect] .pub-multiselect-container div.dropdown {
+        width: 311px;
+    }
+    [advertiser-1-multiselect] .pub-multiselect-container div.dropdown input {
+        width: 231px;
+    }
+
+    [advertiser-2-multiselect] .multiselect__trigger, [advertiser-2-multiselect] .pub-multiselect-container div.dropdown {
+        width: 295px;
+    }
+    [advertiser-2-multiselect] .pub-multiselect-container div.dropdown input {
+        width: 215px;
+    }
+
+    .benchmarking-report-link {
+        color: #0084CB;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .inline { display: inline-block; }
+    .flex { display: flex; }
+
+    .cb-subtitle { margin-top: 5px; }
+
+    .measure-name {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 3px;
+    }
+
+</style>
+
+<style>
+    .bullet-opportunity-chart-bar {
+        width: 100%;
+        padding-top: 7px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .bullet-opportunity-chart-bar .left-bar {
+        height: 18px;
+        background: #cccccc;
+        float: left;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-family: sans-serif;
+        font-weight: 600;
+        line-height: 1em;
+        color: #fff;
+    }
+
+    .bullet-opportunity-chart-bar .right-bar {
+        height: 18px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        overflow: hidden;
+        font-family: sans-serif;
+        font-weight: 600;
+        line-height: 1em;
+        color: #fff;
+
+
+        border: 1px solid #e04644;
+        background: #ee5d58;
+        /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlNWQ1OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNDRmNGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, #ee5d58 0%, #e44f4b 100%);
+        /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee5d58), color-stop(100%, #e44f4b));
+        /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #ee5d58 0%, #e44f4b 100%);
+        /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #ee5d58 0%, #e44f4b 100%);
+        /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #ee5d58 0%, #e44f4b 100%);
+        /* IE10+ */
+        background: linear-gradient(to bottom, #ee5d58 0%, #e44f4b 100%);
+        /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee5d58', endColorstr='#e44f4b',GradientType=0 );
+        /* IE6-8 */
+    }
+
+    [bullet-opportunity-chart-hash] {
+        height: 43px;
+        width: 1px;
+        margin-top: -39px;
+        float: left;
+        clear: right;
+    }
+
+
+
+
+    [bullet-opportunity-chart-hash~="25%"], [bullet-opportunity-chart-hash~="75%"] {
+        background-color: #cccccc;
+    }
+
+    [bullet-opportunity-chart-hash~="25%"] {
+        margin-left: 25%;
+    }
+
+    [bullet-opportunity-chart-hash~="50%"] {
+        background-color: #999999;
+        margin-left: 25%;
+    }
+
+    [bullet-opportunity-chart-hash~="75%"] {
+        margin-left: 25%;
+    }
+
+    .bullet-opportunity-chart-value {
+        font-family: sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1em;
+        color: #444;
+        padding: 0 5px;
+    }
+
+    [tooltip-bubble] .metric-name {
+        text-align: left !important;
+        padding-bottom: 3px !important;
+        padding-top: 3px !important;
+    }
+
+    [tooltip-bubble] .metric-value {
+        text-align: right !important;
+        padding-bottom: 3px !important;
+        padding-top: 3px !important;
+    }
+
+    [tooltip-bubble] .metric-opportunity {
+        font-weight: bold !important;
+        border-top: 1px solid #bfbfbf !important;
+    }
+
+    .square {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-right:5px;
+    }
+
+    .square-red{
+        background: #ee5d58;
+    }
+
+    .square-grey{
+        background: #cccccc;
+    }
+</style>
+
+<!-- TOOLTIP DISMISS OVERLAY -->
+<div class="bullet-tooltip-overlay" ng-if="legendDisplay || toolTipDisplay" ng-click="toggleLegend(false) || toggleToolTip()"></div>
+<!-- SPINNER -->
+<div class="row" ng-if="!isReady || !isTableReady && !isTableError">
+    <div class="spinner-container">
+        <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+        <br><br>
+        <p>{{::'LOADING' | translate}}<p/>
+    </div>
+</div>
+
+
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px" id="benchmarking-header">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="small-5 columns flex">
+                <h1 class="flat">Competitive Benchmarking</h1> 
+                <div class="trial-badge flex" ng-if="isTrial">
+                    <span class="days-remaining-label">Trial Days Left:&nbsp;</span>
+                    <span class="days-remaining">{{::trialLeft}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small-12 columns">
+                <p class="cb-subtitle">Compare your inventory performance against other similar publishers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<!-- MAIN FILTER CONTROLS -->
+<div class="row" ng-show="isReady && isTableReady" filter-row="header">
+    <div class="small-3 columns" id="benchmarking-sales-channel">
+        <h5>
+            <span class="bc-input-label left">Sales Channel</span>
+            <pub-multiselect
+                ng-if="isReady"
+                instructions="'Selected'"
+                selector-items="salesChannels"
+                selections-settings="selectionsSettings"
+                selections-model="salesChannelSelectionsModel"
+                selections-done="selectFilter"
+                selections-cancel="selectionsCancel"
+                scroll
+                sales-channel-multiselect>
+            </pub-multiselect>
+        </h5>
+
+    </div>
+
+    <div class="small-3 columns" id="benchmarking-platform">
+        <h5>
+            <span class="bc-input-label left">Platform</span>
+            <pub-multiselect
+                ng-if="isReady"
+                instructions="'Selected'"
+                selector-items="platforms"
+                selections-settings="selectionsSettings"
+                selections-model="platformSelectionsModel"
+                selections-done="selectFilter"
+                selections-cancel="selectionsCancel"
+                scroll
+                platform-multiselect>
+            </pub-multiselect>
+        </h5>
+
+
+    </div>
+
+    <div class="small-3 columns" id="benchmarking-ad-format">
+        <h5>
+            <span class="bc-input-label left">Ad Format</span>
+            <pub-multiselect
+                ng-if="isReady"
+                instructions="'Selected'"
+                selector-items="adFormats"
+                selections-settings="selectionsSettings"
+                selections-model="adFormatSelectionsModel"
+                selections-done="selectFilter"
+                selections-cancel="selectionsCancel"
+                scroll
+                ad-format-multiselect>
+            </pub-multiselect>
+        </h5>
+
+    </div>
+
+    <div class="small-3 columns" id="benchmarking-ad-size">
+        <h5>
+            <span class="bc-input-label left">Ad Size</span>
+            <pub-multiselect
+                ng-if="isReady"
+                instructions="'Selected'"
+                selector-items="adSizes"
+                selections-settings="adSizeSelectionsSettings"
+                selections-model="adSizeSelectionsModel"
+                selections-done="selectFilter"
+                selections-cancel="selectionsCancel"
+                scroll
+                ad-size-multiselect>
+            </pub-multiselect>
+        </h5>
+
+    </div>
+</div>
+
+<!-- SECONDARY FILTER CONTROLS -->
+<div class="row" ng-show="isReady && isTableReady" filter-row style="border-bottom: 1px solid #e7e7e7">
+    <div class="small-3 columns" style="width:295px" id="benchmarking-view-by">
+        <!-- VIEW BY select -->
+        <span class="bc-input-label left">View by:</span>
+        <span pm-select>
+            <select ng-model="selectedBenchmarkView" ng-change="changeBenchmarkView()" ng-options="benchmarkView.id  as benchmarkView.name for benchmarkView in benchmarkViews" style="width:200px"></select>
+        </span>
+    </div>
+    <div class="small-2 columns" style="width:193px" ng-show="selectedBenchmarkView !== 'advertiserOpportunityId'" id="benchmarking-outlier-threshold-input">
+        <!-- OUTLIER THRESHOLD INPUT -->
+        <span class="bc-input-label left">Outlier Threshold</span>
+        <div pm-input="center">
+            <input ng-model="outlierThreshold" ng-change="changeInterquartileRange(outlierThreshold); outlierThresholdControl.update(outlierThreshold)" ng-focus="isHiddenThresholdBlueBar=false" ng-blur="outlierThresholdBlurHandler()" type="text" style="width:60px;padding-right:20px" maxlength="3">
+            <span style="margin-top:9px;position:absolute;margin-left:-22px;color:#878787">%</span>
+        </div>
+    </div>
+    <div class="small-2 columns" style="width:284px" ng-show="selectedBenchmarkView !== 'advertiserOpportunityId'" id="benchmarking-outlier-threshold-slider">
+        <pub-threshold-slider threshold-model="outlierThreshold"
+            control="outlierThresholdControl"
+            dragstart="outlierThresholdDragstart()"
+            dragend="outlierThresholdDragend()"
+            callback="changeInterquartileRange(outlierThreshold)"
+            width="220"
+            style="display:-webkit-inline-box;float:left">
+        </pub-threshold-slider>
+
+        <div icon-help-wrapper="bullet-chart-legend" style="display: -webkit-inline-box; float: right;">
+            <div icon-help ng-click="toggleLegend(true)">
+                <!-- <img src="../../../../../bower_components/tophat/playpen/images/icon-help-normal.png" /> -->
+                <i class="pm-icon-help" style="margin-top:-4px"></i>
+            </div>
+            <br>
+            <!-- Legend -->
+            <div tooltip-container="bottom" ng-if="legendDisplay">
+                <!-- Row 1 -->
+                <div tooltip-row="">
+                    <div tooltip-cell="">
+                    </div>
+                    <div tooltip-cell="">
+                        <div tooltip-pointer="top" position="center">
+                        </div>
+                    </div>
+                    <div tooltip-cell="">
+                    </div>
+                </div>
+                <!-- Row 2 -->
+                <div tooltip-row="">
+                    <div tooltip-cell="">
+                        <div tooltip-pointer="left">
+                        </div>
+                    </div>
+                    <div tooltip-cell="">
+                        <div tooltip-bubble="bullet-chart-content" style="width:544px">
+                            <div>
+                                <img src="images/benchmark/bullet-legend.png">
+                            </div>
+                            <div>
+                                <img src="images/benchmark/bullet-legend-2.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div tooltip-cell="">
+                        <div tooltip-pointer="right">
+                        </div>
+                    </div>
+                </div>
+                <!-- Row 3 -->
+                <div tooltip-row="">
+                    <div tooltip-cell="">
+                    </div>
+                    <div tooltip-cell="">
+                        <div tooltip-pointer="bottom" position="center">
+                        </div>
+                    </div>
+                    <div tooltip-cell="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="small-2 columns" ng-show="selectedBenchmarkView !== 'advertiserOpportunityId'" id="benchmarking-metrics">
+        <!-- Select METRICS -->
+        <span class="bc-input-label left">Metrics</span>
+        <pub-multiselect
+            ng-if="isReady"
+            instructions="'Selected'"
+            selector-items="metrics"
+            selections-settings="metricsSelectionsSettings"
+            selections-model="metricsSelectionsModel"
+            selections-done="selectMetric"
+            selections-cancel="selectionsCancel"
+            scroll
+            metrics-multiselect
+            style="width:100px;">
+        </pub-multiselect>
+    </div>
+
+    <!-- SHOW # -->
+    <div class="small-1 columns" style="width:140px" id="benchmarking-list-size">
+        <span ng-show="isReady">
+            <span class="bc-input-label left" ng-show="selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView === 'advertiserId' || selectedBenchmarkView === 'advertiserCategoryId'">Show:</span>
+            <span ng-show="selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView === 'advertiserId' || selectedBenchmarkView === 'advertiserCategoryId'" pm-select>
+                <select ng-model="selectedLimit" ng-change="changeLimit()" ng-options="limit for limit in limits" style="width:58px"></select>
+            </span>
+        </span>
+    </div>
+    <!-- VIEW TYPE ICONS -->
+    <div class="small-2 columns" style="width:152px" id="benchmarking-view-type">
+        <div chart-type-toggle="numbers {{tableViewBy == 'number'?'numbers-selected':''}}" ng-click="changeTableViewBy('number')">
+            <i class="pm-icon-view-type-table"></i>
+        </div>
+        <div chart-type-toggle="chart {{tableViewBy == 'chart'?'chart-selected':''}}"   ng-click="changeTableViewBy('chart')">
+            <i class="pm-icon-view-type-chart"></i>
+        </div>
+        <span class="bc-input-label right">View Type:</span>
+    </div>
+</div><!--/ secondary filter controls -->
+
+<!-- ADVERTISER BY PUBLISHER - Note that there is a message between the filters, asking users to select one or two advertisers -->
+<br>
+<div class="row" ng-show="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady && !selectedAdvertisers.length" id="advertiser-by-publisher-note">
+    <div class="small-12 columns">
+        <!-- Andrew: TODO: Need right class to show border -->
+        <div class="alert-box" style="border: 1px solid #b8b7b7; background: #ffffff; cursor: default;">
+            <p class="flat">
+                Please select at least one <b>advertiser</b>, or two to compare.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ADVERTISER BY PUBLISHER - Publisher selection boxes -->
+<div class="row" ng-show="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady" filter-row id="benchmarking-category">
+    <div class="small-4 columns">
+            <span class="bc-input-label left">Choose a Category</span>
+            <pub-multiselect
+                ng-if="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady"
+                selector-items="categories"
+                selections-settings="selectionsSettings"
+                selections-model="categorySelectionsModel"
+                selections-done="selectCategory"
+                selections-cancel="selectionsCancel"
+                single-select
+                scroll
+                category-multiselect>
+            </pub-multiselect>
+    </div>
+
+    <div class="small-4 columns" ng-show="categorySelectionsModel.length" id="benchmarking-advertiser-1">
+            <span class="bc-input-label left"><b>Advertiser 1:</b></span>
+            <pub-multiselect
+                ng-if="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady"
+                selector-items="advertisersByCategory"
+                selections-settings="selectionsSettings"
+                selections-model="firstAdvertiserSelectionsModel"
+                selections-done="selectFirstAdvertiser"
+                selections-cancel="selectionsCancel"
+                single-select
+                scroll
+                advertiser-1-multiselect>
+            </pub-multiselect>
+    </div>
+
+    <div class="small-4 columns" ng-show="categorySelectionsModel.length" id="benchmarking-advertiser-2">
+        <h5>
+            <span class="bc-input-label left">vs <b>Advertiser 2:</b></span>
+            <pub-multiselect
+                ng-if="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady"
+                selector-items="advertisersByCategory"
+                selections-settings="selectionsSettings"
+                selections-model="secondAdvertiserSelectionsModel"
+                selections-done="selectSecondAdvertiser"
+                selections-cancel="selectionsCancel"
+                single-select
+                scroll
+                advertiser-2-multiselect>
+            </pub-multiselect>
+        </h5>
+
+    </div>
+</div>
+
+<div class="row" ng-show="selectedBenchmarkView === 'advertiserId,pubId' && isReady && isTableReady && selectedAdvertisers.length" id="advertiser-by-publisher-report">
+    <div class="small-12 columns">
+        <!-- Andrew: TODO: Need right class to show border -->
+        <div class="alert-box" style="border: 1px solid #b8b7b7; background: #ffffff; cursor: default;">
+            <p class="flat">
+                View <span class="benchmarking-report-link" ng-click="createAdvertiserByPublisherReport()">Advertiser Benchmark Report<span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- NO DATA AVAILABLE - Empty table -->
+<div class="row">
+    <div class="small-12 columns" ng-if="isTableError">No Data Available</div>
+</div>
+
+<!-- DATA TABLE -->
+<div class="row" ng-show="isReady" id="benchmarking-table">
+
+    <!-- MAIN CONTENT -->
+    <!-- <div class="small-12 columns"> -->
+        <!-- TABLE CONTAINER -->
+        <table bullet-chart-table ng-if="isTableReady">
+            <thead>
+                <!-- Columns for ADVERTISER OPPORTUNITY, ADVERTISER, CATEGORIES (NUMBERS)-->
+                <tr ng-if="tableViewBy === 'number' && (selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView === 'advertiserId' || selectedBenchmarkView === 'advertiserCategoryId')">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="{{!measure.isMetric ? 1 : 1}}"
+                        colspan="{{measure.isMetric ? 3 : 1}}"
+                        style="min-width:150px;vertical-align:middle;text-align:center"
+                        ng-click="measure.isDimension && sortColumn($index, true)"
+                        class="nowrap">
+                            <div class="measure-name">
+                                <i ng-show="measure.isDimension && sortingOptions.column === $index && sortingOptions.type === 'desc'" class="fa fa-caret-down"></i>
+                                <i ng-show="measure.isDimension && sortingOptions.column === $index && sortingOptions.type === 'asc'" class="fa fa-caret-up"></i>
+                                {{measure.name}}
+                            </div>
+                            <span ng-if="measure.isMetric"
+                                  class="pmcc-ico-info pmcc-ico-3x"
+                                  style="margin-left:10px"
+                                  pmcc-tooltip="{{::measure.description}}"></span>
+                    </th>
+                </tr>
+                <!-- Columns for ADVERTISER OPPORTUNITY, ADVERTISER, CATEGORIES (CHART) -->
+                <tr ng-if="tableViewBy === 'chart' && (selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView === 'advertiserId' || selectedBenchmarkView === 'advertiserCategoryId')">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="1"
+                        colspan="1"
+                        style="min-width:150px;vertical-align:middle;text-align:center;cursor:pointer;"
+                        class="nowrap">
+                            <div class="measure-name">
+                                <i ng-show="sortingOptions.column === $index && sortingOptions.type === 'desc'"
+                                   ng-click="sortColumn($index, true)"
+                                   class="fa fa-caret-down">
+                                </i>
+                                <i ng-show="sortingOptions.column === $index && sortingOptions.type === 'asc'"
+                                   ng-click="sortColumn($index, true)"
+                                   class="fa fa-caret-up">
+                                </i>
+                                <span style="display:inline-block" ng-click="sortColumn($index, true)">
+                                        {{measure.name}}
+                                </span>
+                            </div>
+                            <span ng-if="measure.isMetric"
+                                  class="pmcc-ico-info pmcc-ico-3x"
+                                  style="margin-left:10px"
+                                  pmcc-tooltip="{{::measure.description}}">
+                            </span>
+                    </th>
+                </tr>
+                <!-- Columns for ADVERTISER by PUBLISHER (NUMBERS) -->
+                <tr ng-if="tableViewBy === 'number' && selectedBenchmarkView === 'advertiserId,pubId'">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="{{!measure.isMetric ? 1 : 1}}"
+                        colspan="{{measure.isMetric ? metricsSelectionsModel.length : 1}}"
+                        style="min-width:150px;vertical-align:middle;text-align:center;cursor:pointer"
+                        ng-click="measure.isDimension && sortColumn($index, true)"
+                        class="nowrap">
+                            <div class="measure-name">
+                                <i ng-show="measure.isDimension && sortingOptions.column === $index && sortingOptions.type === 'desc'" class="fa fa-caret-down"></i>
+                                <i ng-show="measure.isDimension && sortingOptions.column === $index && sortingOptions.type === 'asc'" class="fa fa-caret-up"></i>
+                                {{measure.name}}
+                            </div>
+                    </th>
+                </tr>
+                <!-- Columns for ADVERTISER by PUBLISHER (CHART) -->
+                <tr ng-if="tableViewBy === 'chart' && selectedBenchmarkView === 'advertiserId,pubId'">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="1"
+                        colspan="1"
+                        style="min-width:150px;vertical-align:middle;text-align:center;cursor:pointer"
+                        class="nowrap">
+                            <div class="measure-name">
+                                <i ng-show="sortingOptions.column === $index && sortingOptions.type === 'desc'"
+                                   ng-click="sortColumn($index, true)"
+                                   class="fa fa-caret-down">
+                                </i>
+                                <i ng-show="sortingOptions.column === $index && sortingOptions.type === 'asc'"
+                                   ng-click="sortColumn($index, true)"
+                                   class="fa fa-caret-up">
+                                </i>
+                                <span ng-click="sortColumn($index, true)">
+                                    {{measure.name}}
+                                </span>
+                            </div>
+                            <span ng-if="measure.isMetric"
+                                  class="pmcc-ico-info pmcc-ico-3x"
+                                  style="margin-left:10px"
+                                  pmcc-tooltip="{{::measure.description}}">
+                            </span>
+                    </th>
+                </tr>
+                <!-- Secondary TH - 0 - 100% SCALE for BULLET CHARTS -->
+                <tr secondary-header ng-if="tableViewBy === 'chart'">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="1"
+                        colspan="1"
+                        style="min-width:150px;vertical-align:middle;text-align:center"
+                        class="nowrap">
+
+                        <div ng-if="$index !== 0" bullet-number-container="outer">
+                            <div bullet-number-container="inner">
+                                <div bullet-number-hash="">
+                                    <div bullet-number="">0%</div>
+                                </div>
+                                <div bullet-number-hash="">
+                                    <div bullet-number="">25%</div>
+                                </div>
+                                <div bullet-number-hash="">
+                                    <div bullet-number="">50%</div>
+                                </div>
+                                <div bullet-number-hash="">
+                                    <div bullet-number="">75%</div>
+                                </div>
+                                <div bullet-number-hash="">
+                                    <div bullet-number="">100%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <!-- Columns for ADVERTISER by PUBLISHER (NUMBERS) -->
+                <tr ng-if="selectedBenchmarkView === 'adSizeId,pubId'">
+                    <th ng-repeat="measure in data.columns track by $index"
+                        rowspan="1"
+                        colspan="1"
+                        style="min-width:150px;vertical-align:middle;text-align:center"
+                        class="nowrap">
+                            {{measure.name}}
+                    </th>
+                </tr>
+                <!-- Secondary TH - METRIC NAMES (for NUMBERS) -->
+                <tr secondary-header ng-if="data.secondaryColumns">
+                    <th></th>
+                    <th ng-repeat="measure in data.secondaryColumns track by $index"
+                        style="text-align:center;cursor:pointer"
+                        ng-click="sortColumn($index + 1, true)"
+                        class="nowrap">
+                        <i ng-show="sortingOptions.column === ($index + 1) && sortingOptions.type === 'desc'" class="fa fa-caret-down"></i>
+                        <i ng-show="sortingOptions.column === ($index + 1) && sortingOptions.type === 'asc'" class="fa fa-caret-up"></i>
+                        {{measure.name}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- NUMBER DATA -->
+                <tr ng-repeat="(rowIndex, row) in data.rows track by $index">
+                    <!-- Cell for ADVERTISER, CATEGORIES -->
+                    <td ng-if="selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView ==='advertiserId' || selectedBenchmarkView ==='advertiserCategoryId'"
+                        ng-repeat="measureValue in row track by $index"
+                        ng-click="(selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView ==='advertiserId') && $index===0 && createAdvertiserReport(measureValue)">
+
+                        <!-- number cell -->
+                        <span ng-if="measureValue.isDimension || tableViewBy==='number'"
+                            ng-class="{'benchmarking-report-link': (selectedBenchmarkView === 'advertiserOpportunityId' || selectedBenchmarkView ==='advertiserId') && $index===0}"
+                            class="nowrap"
+                            color="{{measureValue.isDynamicColorMeasure ? measureValue.bulletChartDataSet.color:''}}" >
+                            {{measureValue.decorate("formatedValue").value}}
+                        </span>
+
+                        <!-- bullet cell -->
+                        <div bullet-component-wrapper ng-if="measureValue.isMetric && tableViewBy==='chart'">
+                            <pub-bullet-tip ng-show="selectedBenchmarkView !== 'advertiserOpportunityId'" data="measureValue"></pub-bullet-tip>
+                            <pub-bullet-chart ng-show="selectedBenchmarkView !== 'advertiserOpportunityId'" ng-click="toggleToolTip(measureValue.bulletChartDataSet)" is-hidden-threshold-blue-bar="(isSOW(measureValue) || isSOV(measureValue)) || isHiddenThresholdBlueBar" outlier-threshold="outlierThreshold" measure-value="measureValue"></pub-bullet-chart>
+
+                            <pub-bullet-opportunity-tip
+                                ng-show="selectedBenchmarkView === 'advertiserOpportunityId'"
+                                tool-tip-display="measureValue.display"
+                                metric-name="measureValue.measureValue"
+                                metric-value="measureValue.decorate('formatedValue').value"
+                                metric-percentage="measureValue.valuePercentage"
+                                potential-value="measureValue.decorate('formatedValue').potential"
+                                potential-percentage="measureValue.potentialPercentage"
+                                opportunity-value="measureValue.decorate('formatedValue').opportunity"
+                                opportunity-percentage="measureValue.opportunityPercentage">
+                            </pub-bullet-opportunity-tip>
+                            <pub-bullet-opportunity-chart
+                                ng-show="selectedBenchmarkView === 'advertiserOpportunityId'"
+                                hide-value="measureValue.measureId === 'ecpm'"
+                                ng-click="toggleToolTip(measureValue)"
+                                value="measureValue.decorate('formatedValue').value"
+                                value-percentage="measureValue.valuePercentage"
+                                potential="measureValue.decorate('formatedValue').potential"
+                                opportunity="measureValue.decorate('formatedValue').opportunity">
+                            </pub-bullet-opportunity-chart>
+                        </div>
+                    </td>
+
+                    <!-- Cell for ADVERTISER by PUBLISHER -->
+                    <td ng-if="(selectedBenchmarkView ==='advertiserId,pubId' || selectedBenchmarkView === 'adSizeId,pubId')"
+                        ng-class="{'data-text-small': measureValue.isMetric, 'selected': row[0].id == userId}"
+                        ng-repeat="(measureIndex, measureValue) in row track by $index">
+
+                        <span ng-if="measureValue.isDimension || tableViewBy==='number'"
+                            class="nowrap"
+                            color="{{measureValue.isDynamicColorMeasure ? measureValue.bulletChartDataSet.color:''}}">
+                            {{measureValue.decorate("formatedValue").value}}
+                        </span>
+
+
+                        <div bullet-component-wrapper ng-if="measureValue.isMetric && tableViewBy==='chart'" style="margin-top:-111px">
+                            <pub-bullet-tip  data="measureValue" compare-data="measureValue.compareData"></pub-bullet-tip>
+                            <pub-bullet-chart  ng-click="toggleToolTip(measureValue.bulletChartDataSet)" is-hidden-threshold-blue-bar="(isSOW(measureValue) || isSOV(measureValue)) || isHiddenThresholdBlueBar" outlier-threshold="outlierThreshold" measure-value="measureValue" compare-data="measureValue.compareData"></pub-bullet-chart>
+                        </div>
+                    </td>
+                </tr>
+                <!-- CHART DATA -->
+                <tr secondary-header ng-if="tableViewBy === 'chart'">
+                    <td ng-repeat="measure in data.columns track by $index"
+                        rowspan="1"
+                        colspan="1"
+                        style="min-width:150px;vertical-align:middle;text-align:center;padding:3px 0"
+                        class="nowrap">
+
+                        <div ng-if="$index !== 0" bullet-number-container="outer">
+                            <div bullet-number-container="inner">
+                                <div bullet-number-hash>
+                                    <div bullet-number>0%</div>
+                                </div>
+                                <div bullet-number-hash>
+                                    <div bullet-number>25%</div>
+                                </div>
+                                <div bullet-number-hash>
+                                    <div bullet-number>50%</div>
+                                </div>
+                                <div bullet-number-hash>
+                                    <div bullet-number>75%</div>
+                                </div>
+                                <div bullet-number-hash>
+                                    <div bullet-number>100%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Secondary TH - METRIC NAMES (for NUMBERS) -->
+                <tr secondary-header ng-if="data.secondaryColumns">
+                    <td></td>
+                    <td ng-repeat="measure in data.secondaryColumns track by $index"
+                        style="text-align:center;cursor:pointer"
+                        ng-click="sortColumn($index + 1, true)"
+                        class="nowrap">
+                        <i ng-show="sortingOptions.column === ($index + 1) && sortingOptions.type === 'desc'" class="fa fa-caret-down"></i>
+                        <i ng-show="sortingOptions.column === ($index + 1) && sortingOptions.type === 'asc'" class="fa fa-caret-up"></i>
+                        {{measure.name}}
+                    </td>
+                </tr>
+            </tbody>
+        </table><!--/ bullet-chart-table END -->
+
+        <small class="gray" ng-if="isTableReady">These numbers are not final for billing purposes</small>
+
+    <!-- </div> -->
+</div>
+
+<div style="height:80px" ng-show="selectedBenchmarkView ==='advertiserId,pubId' || selectedBenchmarkView === 'adSizeId,pubId'"></div>
+
+
+<pub-footer></pub-footer>

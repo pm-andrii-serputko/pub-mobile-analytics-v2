@@ -1,0 +1,233 @@
+
+    <div class="small-12 columns">
+        <div>
+            <h3 class="flat">Dimension filtering for <span class="primary">{{editableDimension.getName()}}</span></h3>
+            <!-- Filter by METRIC or RANK -->
+            <hr style="margin-top:20px">
+
+            <div class="row">
+                <div class="small-1 columns">
+                    <h3 class="flat">1</h3>
+                </div>
+                <div class="small-3 columns">
+                    <h4 class="p flat" style="line-height:1.25em">Modify dimension filters based on metric or rank</h4>
+                </div>
+                <div class="small-8 columns">
+                        <div class="form-group right">
+                            <!-- Metrics -->
+                            <form>
+                                <label class="p flat">
+                                    <span pm-select>
+                                        <select ng-model="selectedMetric" ng-change="changeMetric()" ng-options="metric.getName() for metric in metricList">
+                                            <!-- TODO: need to i8tn -->
+                                            <option value="" disabled selected>Metric</option>
+                                        </select>
+                                    </span>
+                                </label>
+                            </form>
+                            <form style="margin:10px 10px 10px 5px">
+                                <label>by</label>
+                            </form>
+                            <!-- # of Items to show -->
+                            <form>
+                                <label class="p flat">
+                                    <span pm-select>
+                                        <select ng-model="selectedRankValue" ng-change="changeRankValue()">
+                                            <!-- TODO: need to i8tn -->
+                                            <option value="" disabled selected>Show</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </span>
+                                </label>
+                            </form>
+                            <!-- Top/Bottom -->
+                            <form>
+                                <label class="p flat">
+                                    <span pm-select>
+                                        <select ng-model="selectedRank" ng-change="changeRank()">
+                                            <!-- TODO: need to i8tn -->
+                                            <option value="" disabled selected>Rank</option>
+                                            <!-- TODO: need to i8tn -->
+                                            <option value="top">Top</option>
+                                            <!-- TODO: need to i8tn -->
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </span>
+                                </label>
+                            </form>
+                        </div>
+                </div>
+            </div>
+
+            <hr style="margin-top:20px">
+
+            <!-- Add extra dimension filters -->
+            <div class="row">
+                <div class="small-1 columns">
+                    <h3 class="flat">2</h3>
+                </div>
+                <div class="small-3 columns">
+                    <h4 class="p flat">Add extra dimension filters</h4>
+                </div>
+                <div class="small-8 columns">
+                    <div class="right">
+                        <button class="pm-button default {{!showExtraComparisonFilter && selectedCompareValue && selectedComparison ? 'primary-bg': ''}} {{showExtraComparisonFilter ? 'active': ''}}" ng-click="toggleExtraFilter('comparison')">Comparison filter</button>
+                        <button class="pm-button default {{!showExtraDimensionValueFilter && selectedDimensionValues.length ? 'primary-bg': ''}} {{showExtraDimensionValueFilter ? 'active': ''}}" ng-click="toggleExtraFilter('dimensionValue')">Dimension value filter</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin-top:20px">
+
+            <!-- Compare measures -->
+            <div class="row" ng-show="showExtraComparisonFilter">
+                <div class="small-1 columns">
+                    <h3 class="flat">3</h3>
+                </div>
+                <div class="small-3 columns">
+                    <h4 class="p flat">Compare measures</h4>
+                </div>
+                <div class="small-8 columns">
+                    <div pm-input style="float:right;margin-left:5px">
+                        <input ng-model="selectedCompareValue" ng-change="changeCompareValue()" type="text" placeholder="Amount">
+                    </div>
+                    <span pm-select style="float:right">
+                        <select ng-model="selectedComparison" ng-change="changeComparison()">
+                            <!-- TODO: need to i8tn -->
+                            <option value="" disabled selected>Comparison filters</option>
+                            <option value="none" selected>None selected</option>
+                            <option value="gt">&#62;&nbsp; Greater than</option>
+                            <option value="lt">&#60;&nbsp; Less than</option>
+                            <option value="eq">&#61;&nbsp; Equal to</option>
+                            <option value="gtEq">&#8805;&nbsp; Greater than or equal to</option>
+                            <option value="ltEq">&#8804;&nbsp; Less than or equal to</option>
+                            <option value="notEq">&#8800;&nbsp; Not equal to</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+
+            <hr ng-show="showExtraComparisonFilter" style="margin-top:20px">
+
+            <!-- Value change -->
+            <div class="row" ng-if="showExtraValueChangeFilter">
+                <div class="small-4 columns">
+                    <p class="bottom-clear">Value change</p>
+                </div>
+                <div class="small-8 columns">
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <select>
+                                <option value="increase">Increase</option>
+                                <option value="decrease">Decrease</option>
+                            </select>
+                        </div>
+                        <div class="small-4 columns">
+                            <select>
+                                <option value="total-value">Total value</option>
+                                <option value="percentage">Percentage</option>
+                            </select>
+                        </div>
+                        <div class="small-4 columns">
+                            <div pm-input>
+                                <input type="text" placeholder="Amount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr ng-if="showExtraValueChangeFilter" style="margin-top:20px">
+
+            <!-- Dimension value -->
+            <div class="row" ng-show="showExtraDimensionValueFilter">
+                <!-- Loading -->
+                <div class="spinner-container" ng-show="selectedDimensionValuesLoading">
+                    <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+                    <!-- TEMP Message, needs to be updated code -->
+                    <p>{{::'DASHBOARD.LOADING' | translate}}<p/>
+                </div>
+
+                <div class="small-12 columns" ng-show="!selectedDimensionValuesLoading">
+                    <div class="row">
+                        <!-- Dimensions list -->
+                        <div class="small-6 columns" ng-show="!selectedDimensionValuesIsEmpty">
+                            <div pm-input>
+                                <!-- <label class="p flat">Dimension value -->
+                                    <input type="text" placeholder="Search dimensions" ng-model="dimensionValueQuery" class="expand">
+                                <!-- </label> -->
+                            </div>
+                        </div>
+                        <div class="small-4 columns" ng-if="!selectedDimensionValuesIsEmpty">
+                            <label class="p" style="margin-top:16px;margin-bottom:0;display:block">Selected dimensions</label>
+                        </div>
+                        <div class="small-2 columns">
+                            <button class="right"  ng-class = "selectedDimensionValues.length ? 'button small' : 'button small disabled'" ng-click="clearDimensions()" style="margin-top:9px">
+                                clear selection</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <!-- Select dimensions (left) -->
+                        <div class="small-6 columns">
+                            <div class="multi-select-list show-10 scroll" when-scrolled="loadMore()">
+                                <ul>
+                                    <li ng-repeat="dimensionValue in shownDimensionValues track by $index" ng-click="changeDimensionValueFilters(dimensionValue)" class="nowrap">
+                                        <span style="display:inline" class="nowrap">
+                                            <i class="fa checkbox {{selectedDimensionValueIds.indexOf(dimensionValue.id) === -1 ? 'fa-square-o': 'fa-check-square-o'}}"></i>
+                                        </span>
+                                        &nbsp;
+                                        <span style="display:inline" class="nowrap">
+                                            {{dimensionValue.name}}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- No dimension values -->
+                        <div class="small-6 columns">
+                            <div ng-if="!selectedDimensionValuesLoading && selectedDimensionValuesIsEmpty">No dimension values</div>
+                        </div>
+                        <!-- Selected dimensions (right) -->
+                        <div class="small-6 columns" ng-if="!selectedDimensionValuesIsEmpty">
+                            <div class="multi-select-list show-10 scroll">
+                                <ul>
+                                    <li ng-repeat="dimensionValue in selectedDimensionValues track by $index" ng-click="changeDimensionValueFilters(dimensionValue)" class="nowrap">
+                                        <span style="display:inline" class="nowrap">
+                                            <i class="fa fa-minus-square-o"></i>
+                                        </span>
+                                        &nbsp;
+                                        <span style="display:inline" class="nowrap">
+                                            {{dimensionValue.name}}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CANCEL/DONE BUTTONS -->
+            <br ng-show="showExtraDimensionValueFilter">
+            <br ng-show="showExtraDimensionValueFilter">
+            <hr ng-show="showExtraDimensionValueFilter" style="margin-top:20px">
+            <div class="row">
+                <div class="small-12 columns">
+                    <div class="right">
+                        <button class="pm-button default" ng-click="cancelEditing()">Cancel</button>
+                        <button class="pm-button success" ng-class="{'disabled': !isEditableDimensionChanged}"ng-click="isEditableDimensionChanged && save()">Save</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>

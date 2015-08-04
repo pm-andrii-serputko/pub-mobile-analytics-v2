@@ -1,0 +1,39 @@
+{
+  "name": "pub-slicer",
+  "version": "1.9.0",
+  "dependencies": {
+    "angular": "1.3.15",
+    "angular-resource": "1.3.15",
+    "angular-route": "1.3.15",
+    "angular-mocks": "1.3.15",
+    "angular-animate": "1.3.15",
+    "json3": "~3.3.2",
+    "es5-shim": "~4.1.0",
+    "d3-tip": "~0.6.6",
+    "fastclick": "~1.0.6",
+    "angular-translate": "~2.6.1",
+    "angular-translate-loader-static-files": "~2.6.1",
+    "angular-base64": "~2.0.3",
+    "angular-toastr": "~1.4.1",
+    "ng-idle": "~0.3.5",
+    "angular-poller": "~0.3.2",
+    "datepicker": "git@github.com:PubMatic/pub-ui-datepicker.git",
+    "ngDialog": "git@github.com:PubMatic/pub-ui-ngdialog.git",
+    "tophat": "git@github.com:PubMatic/tophat.git",
+    "tophat-multiselect": "git@github.com:PubMatic/pub-ui-tophat-v1.git",
+    "kickstartPmlComponents": "git@github.com:PubMatic/pub-kickstart-portal.git",
+    "nvd3": "git@github.com:PubMatic/pub-ui-nvd3.git",
+    "pubSlicerHelp": "git@github.com:PubMatic/pub-ui-helper.git"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "d3": "~3.4.1",
+    "angular": "1.3.15",
+    "angular-resource": "1.3.15",
+    "angular-mocks": "1.3.15",
+    "angular-route": "1.3.15",
+    "angular-animate": "1.3.15",
+    "es5-shim": "4.1.*",
+    "json3": "3.3.2"
+  }
+}

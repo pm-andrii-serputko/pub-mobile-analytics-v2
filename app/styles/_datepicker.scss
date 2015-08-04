@@ -1,0 +1,227 @@
+
+#selected {
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+}
+#date {
+  padding-left:20px;
+  width: 200px;
+  height: 220px;
+  padding: 5px;
+  background: #eeeeef;
+  margin: 20px auto;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+#date .year {
+  display:none;
+}
+#date .year .dec,
+#date .year .inc {
+  display:none;
+  width: 30px;
+  height: 30px;
+  background: #0196d8;
+}
+#date .year label {
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-size: 9px;
+}
+#date .month {
+border-radius: 3px 3px 0 0;
+  line-height: 30px;
+  border-radius: 3px 3px 0 0;
+  background: -moz-linear-gradient(top,  rgba(1,150,216,1) 0%, rgba(1,150,216,0.94) 24%, rgba(1,47,112,0.74) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(1,150,216,1)), color-stop(24%,rgba(1,150,216,0.94)), color-stop(100%,rgba(1,47,112,0.74))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(1,150,216,1) 0%,rgba(1,150,216,0.94) 24%,rgba(1,47,112,0.74) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(1,150,216,1) 0%,rgba(1,150,216,0.94) 24%,rgba(1,47,112,0.74) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(1,150,216,1) 0%,rgba(1,150,216,0.94) 24%,rgba(1,47,112,0.74) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(1,150,216,1) 0%,rgba(1,150,216,0.94) 24%,rgba(1,47,112,0.74) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0196d8', endColorstr='#bd012f70',GradientType=0 ); /* IE6-9 */
+}
+#date.compare-picker .month {
+  border-radius: 3px 3px 0 0;
+  line-height: 30px;
+  background: gray;
+}
+
+
+
+#date .month .dec,
+#date .month .inc {
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px 3px 0 0;
+  cursor: pointer;
+}
+
+#date .month .dec:hover,
+#date .month .inc:hover {
+
+}
+
+#date .month a:active,
+#date .month a:active {
+    -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+  }
+
+#date .month .dec {
+  float: left;
+}
+#date .month .inc {
+  float: right;
+}
+#date .month .dec::before {
+  content: '<'
+}
+#date .month .inc::before {
+  content: '>'
+}
+#date .month .dec::before,
+#date .month .inc::before {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+}
+#date .month label {
+  display: block;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px #334;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#date .days {
+  float: left;
+  width: 100%;
+  height: 160px;
+}
+#date .days-names,
+#date .days-row {
+  float: left;
+  width: 100%;
+  height: 25px;
+}
+#date .days-row:last-child {
+  border-bottom: 0;
+}
+#date .days-names label,
+#date .days-cell {
+  float: left;
+  width: 14%;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 13px;
+  color: #202020;
+  cursor: pointer;
+  padding: 0px;
+}
+
+#date .days-cell:not(.selected):not(.off):hover {
+  background: #ddddde;
+}
+#date .days-cell.hover-date:not(.selected):not(.off) {
+  background:yellow;
+
+}
+
+#date .days-cell.selected {
+  background: skyblue;
+  color: #000;
+  line-height: 2;
+}
+#date .days-cell.selected-other-month {
+  color: white;
+  line-height: 2;
+}
+
+
+#date .days-cell.off {
+  color: #909090;
+}
+
+#date .days-cell.selected.off {
+  color: #ccc;
+}
+
+#date .days-names {
+  background: #e0e0e0;
+}
+
+.date-option-link{
+    transition-property: all;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    color: #666666;
+ 
+    vertical-align: middle;
+    height: 32px;
+    line-height: 25px;
+    padding: 5px 12px;
+    font-weight: 300;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+}
+.date-option-link:hover{
+    color:#000;
+    background-color:#ddd;
+}
+.date-option-link-selected{
+    background-color:#0196d8;
+    color:#fff;
+    transition-property: all;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+ 
+    vertical-align: middle;
+    height: 32px;
+    line-height: 25px;
+    padding: 5px 12px;
+    font-weight: 300;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+}
+.date-option-link-selected:hover{
+    color:#fff;
+}
+div.datepicker-containner{
+  font-weight: 300;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+  margin-left: 35px!important;
+}
+.error-message{
+  color:red;font-size: 14px;padding-left: 150px;
+}
+div#date{
+  margin-top:0px!important;
+}
+
+div.datepicker-confirm {
+  padding-bottom: 25px;
+  margin-top: 12px;
+  margin-left: -65px;
+}
+
+ul.date-list {
+  min-width: none;
+  padding: 12px 25px;
+}

@@ -1,0 +1,64 @@
+<!--
+|^ |_| ]3 |\/| /\ ~|~ /? | ><
+A PubMatic Technology.
+Copyright PubMatic, Inc. 2014
+Designed and engineered in:
+Redwood City, California
+Pune, India
+//pubmatic.com
+-->
+
+
+<!-- HEADER -->
+<div class="row" style="margin-top:30px">
+    <div class="small-6 columns">
+        <h1 class="flat">{{::'METRICS_SCREEN.SELECT_METRICS' | translate}}</h1>
+        <p style="font-size:.8em;line-height:1.25em">{{::'METRICS_SCREEN.PROMPT' | translate}}</p>
+        <p style="font-size:.8em;line-height:1.25em"><b>{{::'METRICS_SCREEN.NOTE' | translate}}:</b> {{::'METRICS_SCREEN.NOTE_CONTENT' | translate}}</p>
+    </div>
+    <div class="small-6 columns">
+        <button class="pm-button default right" ng-click="clear()"><i class="fa fa-times">&nbsp;&nbsp;{{::'CLEAR_SELECTION' | translate}}</i></button>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="small-4 columns" ng-repeat="metricGroup in metricGroupList track by $index">
+        <table class="pm-legacy-table data-table hover first">
+            <thead>
+                <tr>
+                    <th>{{::metricGroup.groupModel.getName()}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{metricModel.getId()}}_Row" pub-metric-item ng-repeat="metricModel in metricGroup.metrics track by $index" ng-click="toggle()" class="{{metricModel.getDisabled() && !metricModel.getSelected() ? 'disabled': ''}}">
+                    <td class="{{metricModel.getSelected() ? 'selected': ''}}">{{::metricModel.getName()}}
+                        <span class="pmcc-ico-info right"
+                              id="t{{::metricModel.getId()}}"
+                              pmcc-tooltip
+                              pmcc-content-provider="getMetricTooltip(key)"
+                              pmcc-content-key="{{::metricModel.getId()}}">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="small-12 columns">
+        <button class="pm-button default left" ng-click="back()">{{'BACK' | translate}}</button>
+        <div class="right">
+            <button class="pm-button default {{editableDimension ? 'disabled': '' }}" ng-click="cancel()">Cancel</button>
+            <button class="pm-button success" ng-click="done()">{{'GENERATE_REPORT' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>
+

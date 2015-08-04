@@ -1,0 +1,20 @@
+/*doc
+---
+title: Variables
+name: variable
+# category: Atoms
+# parent: global
+---
+
+Variable              | Value
+----------------------|-------------
+$border-radius        | 5px
+$border-width         | 4px
+
+
+```html_example
+	.myBorder {
+		border-radius: $border-radius;
+	}
+```
+*/

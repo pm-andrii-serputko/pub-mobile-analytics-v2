@@ -1,0 +1,41 @@
+<tr class="data-table-tr">
+    <td ng-if="currentGroupingLevel <= 1" width="20px" rowspan="{{rowspan}}"></td>
+    <td ng-repeat="measureValueModel in row track by $index" rowspan="{{$index === 0 ? rowspan : 1}}" ng-click="toggleRow($index === 0)" ng-class="{
+        'pointer-cursor': $index === 0 && showExpandButton,
+        'data-text-small': measureValueModel.isMetric,
+        'contrast-column': measureValueModel.isCompare}">
+    	
+        <div class="nowrap">
+            <!-- Expand button -->
+            <span class="pointer-cursor toggle-sprite"  ng-if="$index === 0 && !isExpanded && showExpandButton" style="display:inline" class="nowrap">
+                <i class="fa fa-caret-right"></i>
+            </span>
+
+            <!-- Collapse button -->
+            <span class="pointer-cursor toggle-sprite" ng-if="$index === 0 && isExpanded && showExpandButton" style="display:inline" class="nowrap">
+                <i class="fa fa-caret-down"></i>
+            </span>
+
+            <!-- Displayed value -->
+            <span class="" style="display:inline" class="nowrap">
+                {{measureValueModel.value}}
+                <span ng-if="!measureValueModel.isCompare && measureValueModel.compare === 'higher'" class="success delta">
+                    &#9650;
+                </span>
+                <span ng-if="!measureValueModel.isCompare && measureValueModel.compare === 'lower'" class="alert delta">
+                    &#9660;
+                </span>
+            </span>
+
+            <!-- Offline notification-->
+            <span class="label inverse alert-bg" ng-if="showOfflineLabel && $index === 0">
+                <i class="fa fa-bolt"></i> {{::'SLICER.OFFLINE' | translate}} {{offlineTimerValue}}{{'SLICER.SEC' | translate}}...
+            </span>
+
+            <!-- Spinner -->
+            <span class=" toggle-sprite" style="display:inline" class="nowrap" ng-if="showSpinner && $index === 0 && !showOfflineLabel">
+                <span class="pmcc-ico-processing pmcc-ico-1x pmcc-effect-spin pmcc-blue-md"></span>
+            </span>
+        </div>
+    </td>
+</tr>

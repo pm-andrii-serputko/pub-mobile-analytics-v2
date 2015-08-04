@@ -1,0 +1,15 @@
+/*doc
+---
+title: Cursors
+name: cursor
+# category: Atoms
+# parent: global
+---
+
+TBDd
+
+*/
+/* line 16, ../../../../../tophat-test/components/atoms/global/cursors.scss */
+.pointer-cursor {
+  cursor: pointer;
+}

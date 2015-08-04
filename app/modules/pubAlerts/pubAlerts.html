@@ -1,0 +1,260 @@
+<style>
+    .description {
+        line-height: 1em;
+    }
+    .alerts-email-multiselect {
+        width: 175px;
+    }
+    .search-label {
+        float: left;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+    /* remove the animation of all dialog */
+    .ngdialog-content{
+        -webkit-animation: none;
+        animation: ngdropDown-slideDown none;
+    }
+    #alerts-zero-state-message {
+        padding: 30px;
+        border: 5px solid #f3f3f3;
+        font-weight: bold;
+    }
+</style>
+
+<div id="alerts-container">
+
+    <!-- SPINNER -->
+    <!-- <div id="alerts-spinner" ng-show="isQuerying">
+        <div class="spinner-container">
+            <span class="pmcc-ico-processing pmcc-ico-6x pmcc-effect-spin pmcc-blue-md"></span>
+            <p class="flat">{{::'ALERTS.LOADING' | translate}}<p/>
+        </div>
+    </div> -->
+
+    <div id="mainView">
+        <div ng-include="currentTab"></div>
+    </div>
+
+    <!-- HEADER -->
+<!--     <div id="alerts-main-header" class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <h1 class="pmcc-h1">My Alerts</h1>
+        </div>
+    </div>
+
+    <hr>
+ -->
+    <!-- VIEW/MANAGE BUTTONS -->
+    <!-- <div id="view-manage-alerts-tab" class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <button ng-class="(currentTab==='alertsList')? 'pmcc-btn-lg pmcc-secondary active':'pmcc-btn-lg pmcc-secondary'" ng-click="onClickTab(tabs[0])">
+                {{::'ALERTS.VIEW_ALERTS' | translate}}
+            </button>
+            <button ng-class="(currentTab==='manageAlerts')? 'pmcc-btn-lg pmcc-secondary active':'pmcc-btn-lg pmcc-secondary'" ng-click="onClickTab(tabs[1])">
+                {{::'ALERTS.MANAGE_ALERTS' | translate}}
+            </button>
+        </div>
+    </div> -->
+
+    <!-- FILTER ROW -->
+    <div id="alerts-filter-search-controls" class="pmcc-r-12" id="viewAlerts" ng-show="currentTab==='alertsList' && !alertZeroState" style="  padding-left: 15px;">
+        <!-- FILTER BY DROPDOWN -->
+        <h2 class="pmcc-h2"  style="padding-bottom: 30px;">{{::'ALERTS.VIEW_ALERTS' | translate}}</h2>
+        <div id="alerts-filter-control" class="pmcc-c-4" style="width:100%;">
+        
+            <label ng-class="(alertZeroState) ? 'gray':''" >{{::'ALERTS.FILTER_BY' | translate}}</label>&nbsp;
+            <select style="width: auto;" ng-disabled="alertZeroState" ng-model="issuesOpportunitiesFilter"  ng-options="item.name as item.name for item in alertTypeArray" ng-change="changeFilter(issuesOpportunitiesFilter)"></select>
+                
+      
+        </div>
+        <!--FILTER SEARCH INPUT-->
+        <div id="alerts-search-control" class="pmcc-c-4" style="width:100%;">
+            <span class="search-label" ng-class="(alertZeroState) ? 'gray':''" for="search">{{::'ALERTS.SEARCH' | translate}}</span>
+            <div pm-input>
+                <input ng-disabled="alertZeroState" type="text" name="search" ng-model="searchText" ng-change="filterViewAlertsSearch(searchText)" placeholder="Search">
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW ALERTS TABLE, PML Component -->
+    <div class="pmcc-r-12">
+        <div class="pmcc-c-12">
+            <!-- Data Table Kickstart-->
+            <pm-api-table-beta
+                id="alerts-view-table"
+                ng-show="!isQuerying && currentTab==='alertsList'"
+                columnheaders="Alert Message"
+                displayfields="message"
+                method="GET"
+                rowbuttons=""
+                rowclick="rowClick"
+                apiresponse="shownresponse"
+                classname="fa fa-exclamation-circle"
+                class="no-highlight"
+                removealertrow="removeAlertRow(item)"
+                filteredresponse="myresponse"
+                index="index"
+                footerlength="340">
+            </pm-api-table-beta>
+        </div>
+    </div>
+
+    <!-- MANAGE ALERTS -->
+
+    <!-- ALERTS ZERO STATE -->
+    <div id="alerts-zero-state-message" ng-if= "alertZeroState && currentTab==='alertsList'">
+        <p class="flat">{{::'ALERTS.ZERO_STATE_WELCOME_ROW' | translate}}<p/>
+    </div>
+
+    <!-- MANAGE ALERTS -->
+    <div id="manageAlerts" ng-show="currentTab==='manageAlerts' && !isQuerying">
+
+        <!-- SYSTEM ALERTS HEADER -->
+        <div id="system-alerts-title" class="pmcc-r-12">
+            <div class="pmcc-c-6">
+                <div id="tabsManage">
+                    <h2 class="pmcc-h2">{{::'ALERTS.MANAGE_ALERTS' | translate}}</h2>
+                    <div id="mainViewManage">
+                        <div ng-include="currentTabManage"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- REMOVE ALERTS AFTER x DAYS dropdown -->
+            <div id="alerts-purge-dropdown" class="pmcc-c-6">
+                <form class="right">
+                    <label> {{::'ALERTS.REMOVE_MESSAGE' | translate}}&nbsp;
+                    <span pm-select style="width:125px">
+                        <select ng-model="alertsMainUserSetting.deleteInDays" ng-options="item.days as item.name for item in alertPurgeArray" ng-change="newDeleteValue = alertsMainUserSetting.deleteInDays"></select>
+                    </span>
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <!-- SYSTEM ALERTS TABLE -->
+        <div id="manage-alerts-controls" class="pmcc-r-12">
+            <div class="pmcc-c-12">
+
+                <div id="gloabalalerts" ng-if="currentTabManage==='systemAlertsList'">
+                    <div class="pmcc-r-12">
+                        <div class="pmcc-c-12">
+                            <table class="pm-legacy-table">
+                                <thead>
+                                    <tr>
+                                        <th id="alert-name-description-title" style="border:0">{{::'ALERTS.ALERT_NAME_AND_DESC' | translate}}</th>
+                                        <th id="alert-on-off-title" style="text-align:center;border:0">{{::'ALERTS.ALERTON-OFF' | translate}}</th>
+                                        <th id="alert-email-on-off-title" style="text-align:center;border:0">{{::'ALERTS.EMAILON-OFF' | translate}}</th>
+                                        <th id="alert-frequency-title" style="text-align:center;border:0">{{::'ALERTS.FREQUENCY' | translate}}</th>
+                                        <th id="alert-deivery-title" style="text-align:center;border:0;width:175px">{{::'ALERTS.DELIVERY' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th id="alerts-switch" style="vertical-align:middle; text-align:center" class="no-highlight">
+                                            <!-- ALERT ON/OFF SWITCH (master) -->
+                                            <span class="switch-container">
+                                                <label class="switch">
+                                                    <input type="checkbox" class="switch-input" ng-model="alertsMainUserSetting.featureSwitch">
+                                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                                    <span class="switch-handle"></span>
+                                                </label>
+                                            </span>
+                                        </th>
+                                        <th id="alert-email-switch" style="vertical-align:middle; text-align:center" class="no-highlight">
+                                            <!-- EMAIL ON/OFF SWITCH (master) -->
+                                            <span ng-class="!alertsMainUserSetting.featureSwitch? 'switch-container switch-disabled': 'switch-container'">
+                                                <label class="switch">
+                                                    <input ng-disabled="!alertsMainUserSetting.featureSwitch" type="checkbox" class="switch-input" ng-model="alertsMainUserSetting.emailSwitch">
+                                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                                    <span class="switch-handle"></span>
+                                                </label>
+                                            </span>
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr id="alert-{{item.id}}-row"  ng-repeat="item in alertRulesData track by $index" style="height:56px">
+                                        <td>
+                                            <div class="bold" style="margin-top:15px">{{::item.title}}</div>
+                                            <div class="description" style="margin-top:5px;margin-bottom:15px">
+                                                <small class="description">{{::item.description}}</small>
+                                            </div>
+                                        </td>
+
+                                        <!-- ALERT ON/OFF SWITCH -->
+                                        <td style="vertical-align:middle; text-align:center" class="no-highlight">
+                                            <div ng-class="!alertsMainUserSetting.featureSwitch? 'switch-container switch-disabled': 'switch-container'" style="margin-top:6px">
+                                                <label class="switch">
+                                                    <input type="checkbox" ng-disabled="!alertsMainUserSetting.featureSwitch" class="switch-input ng-pristine ng-valid" ng-model="item.featureSwitch">
+                                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                                    <span class="switch-handle"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <!-- EMAIL ON/OFF SWITCH -->
+                                        <td style="vertical-align:middle; text-align:center" class="no-highlight">
+                                            <div ng-class="!alertsMainUserSetting.emailSwitch || !alertsMainUserSetting.featureSwitch || !item.featureSwitch? 'switch-container switch-disabled': 'switch-container'" style="margin-top:6px">
+                                                <label class="switch">
+                                                    <input type="checkbox" ng-disabled="!alertsMainUserSetting.emailSwitch || !alertsMainUserSetting.featureSwitch || !item.featureSwitch" class="switch-input ng-pristine ng-valid" ng-model="item.emailSwitch">
+                                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                                    <span class="switch-handle"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <!-- FREQUENCY -->
+                                        <td style="vertical-align:middle;text-align:center;" class="no-highlight">
+                                            <form>
+                                                <span pm-select style="width:125px">
+                                                    <select ng-disabled="!alertsMainUserSetting.emailSwitch || !alertsMainUserSetting.featureSwitch || !item.emailSwitch || !item.featureSwitch" ng-model="item.triggerFrequency"  ng-options="item.name as item.name for item in alertFreqArray"></select>
+                                                </span>
+                                            </form>
+                                        </td>
+                                        <!-- DELIVERY (select users) -->
+                                        <td style="vertical-align:middle;text-align:center" class="no-highlight">
+                                            <pub-multiselect
+                                                ng-if="isReadyEmailSelection"
+                                                instructions="'Selected'"
+                                                selector-items="inputSelectedEmailData[item.id]"
+                                                selections-settings="alertEmailSelectionSettings"
+                                                selections-model="alertsSelectedEmailModel[item.id]"
+                                                selections-done="alertSelectionsComplete"
+                                                selections-cancel="alertSelectionsCancel"
+                                                enabled = "alertsMainUserSetting.emailSwitch &&
+                                                           alertsMainUserSetting.featureSwitch &&
+                                                           item.emailSwitch &&
+                                                           item.featureSwitch"
+                                                scroll
+                                                class="alerts-email-multiselect">
+                                            </pub-multiselect>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- SAVE -->
+                    <div id="alerts-save-button-controls" class="pmcc-r-12">
+                        <div class="pmcc-c-12">
+                            <button class="pmcc-btn-lg pmcc-primary right" ng-click="saveAlerts()" id="view-alerts">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/ng-template" id="systemAlertsList">
+                </script>
+            </div>
+        </div>
+
+        <script type="text/ng-template" id="alertsList"></script>
+        <script type="text/ng-template" id="manageAlerts"></script>
+
+        <div style="margin-bottom:150px"></div>
+    </div>
+
+</div>
+
+<div style="margin-bottom:150px"></div>
+<pub-footer></pub-footer>

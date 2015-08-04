@@ -1,0 +1,25 @@
+<div style="
+margin:5px 0px 0px 30px;
+position:fixed;
+width:{{bodywidth}}px;
+height:100%;">
+
+    <div ng-click=slidesidebar() style="
+    z-index: 1000;
+    position:absolute;
+    top: 0px;
+    left: -42px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    width: 20px;
+    border-radius: 0px 15px 15px 0px;
+    background: #444;
+    cursor: pointer;
+    ">
+        <i class="fa fa-angle-double-left" style="color:#FFF"></i>
+    </div>
+
+    <div class="container" ng-view=""></div>
+    <div ng-transclude></div>
+</div>

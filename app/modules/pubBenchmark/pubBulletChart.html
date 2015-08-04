@@ -1,0 +1,40 @@
+<div bullet-chart-container="{{compareData? 'outer-double':'outer'}}">
+    <div bullet-chart-container="inner">
+        <!-- OUTLIER RANGE HIGHLIGHT -->
+        <div bullet-chart-outlier-range-highlight ng-class="{'hide': isHiddenThresholdBlueBar}" style="width:{{outlierThreshold}}%">
+        </div>
+        <!-- eCPM BAR -->
+        <div
+            ng-if="measureValue.measureId === 'ecpm'"
+            bullet-chart-bar="{{measureValue.bulletChartDataSet.color}}"
+            style="width:{{measureValue.bulletChartDataSet.percentage}}">
+            <!-- BAR VALUE -->
+            <div bullet-chart-value="">{{measureValue.decorate("formatedValue").value}}</div>
+        </div>
+        <!-- NON-eCPM BAR -->
+        <div
+            ng-if="measureValue.measureId !== 'ecpm'"
+            bullet-chart-bar="{{measureValue.bulletChartDataSet.color}}"
+            style="width:{{measureValue.decorate('formatedWidthValue').value}}">
+            <!-- BAR VALUE -->
+            <div bullet-chart-value="">{{measureValue.decorate("formatedValue").value}}</div>
+        </div>
+
+
+        <!-- Advertiser 2-->
+        <div ng-if="compareData && measureValue.measureId === 'ecpm'" ng-click="toggleToolTip(measureValue.bulletChartDataSet)"   bullet-chart-bar="{{compareData.bulletChartDataSet.color}}" style="width:{{compareData.bulletChartDataSet.percentage}}">
+            <div bullet-chart-value="">{{compareData.decorate("formatedValue").value}}</div>
+        </div>
+        <!-- NON-eCPM BAR -->
+        <div ng-if="compareData && measureValue.measureId !== 'ecpm'" ng-click="toggleToolTip(measureValue.bulletChartDataSet)"  bullet-chart-bar="{{compareData.bulletChartDataSet.color}}"
+        style="width:{{compareData.decorate('formatedWidthValue').value}}">
+            <div bullet-chart-value="">{{compareData.decorate("formatedValue").value}}</div>
+        </div>
+
+
+        <!-- HASHES -->
+        <div bullet-chart-hash="25%"></div>
+        <div bullet-chart-hash="50%"></div>
+        <div bullet-chart-hash="75%"></div>
+    </div>
+</div>
